@@ -8,7 +8,7 @@ const conectToDataBase = async () => {
 		console.log("conexion exitosa a la base de datos");
 
 		if (NODE_ENV !== "production") {
-			// await db.sync();
+			await db.sync();
 			// await db.sync({ alter: true });
 			// await db.sync({ alter: true, force: true });
 			

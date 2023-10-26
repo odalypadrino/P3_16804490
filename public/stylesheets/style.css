@@ -1,0 +1,14 @@
+
+.product__card{
+  width: 200px;
+  /* height: 300px; */
+/* margin-right: .3rem; */
+/* box-shadow: #0002  2px 2px 5px;
+border-radius: 1rem; */
+/* padi */
+}
+
+.product__card .img__container{
+  height:60%;
+
+}
