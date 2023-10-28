@@ -1,0 +1,117 @@
+<% if (data) { %>
+<form action="/product/update/<%= data.id %>" method="post">
+	<select name="categoryId">
+		<% categories.forEach(element => { %>
+
+		<option value="<%= element.id %>" 	<%= element.id == data.categoryId ? "selected" : "" %>><%= element.name %></option>
+
+		<% }) %>
+	</select>
+	<input
+		type="text"
+		name="code"
+		value="<%= data.code %>"
+		autofocus
+		autocomplete="none"
+		placeholder="Codigo"
+	/>
+
+	<input
+		type="text"
+		name="name"
+		value="<%= data.name %>"
+		autocomplete="none"
+		placeholder="Nombre del producto"
+	/>
+	<input
+		type="number"
+		name="cost"
+		value="<%= data.cost %>"
+		autocomplete="none"
+		placeholder="Costo"
+	/>
+
+	<textarea
+		name="description"
+		value="<%= data.description %>"
+		cols="30"
+		rows="10"
+		placeholder="descripcion"
+	></textarea>
+
+	<input
+		type="text"
+		name="size"
+		value="<%= data.size %>"
+		autocomplete="none"
+		placeholder="Talla"
+	/>
+	<input
+		type="text"
+		name="brand"
+		value="<%= data.brand %>"
+		autocomplete="none"
+		placeholder="Marca"
+	/>
+	<input type="submit" />
+</form>
+<% } else { %>
+
+<form action="/product/create" method="post">
+	<select name="categoryId" id="">
+		<% categories.forEach(element => { %>
+
+		<option value="<%= element.id %>"><%= element.name %></option>
+
+		<% }) %>
+	</select>
+	<input
+		type="text"
+		name="code"
+		value=""
+		autofocus
+		autocomplete="none"
+		placeholder="Codigo"
+	/>
+
+	<input
+		type="text"
+		name="name"
+		value=""
+		autocomplete="none"
+		placeholder="Nombre del producto"
+	/>
+	<input
+		type="number"
+		name="cost"
+		value="0"
+		autocomplete="none"
+		placeholder="Costo"
+	/>
+
+	<textarea
+		name="description"
+		cols="30"
+		rows="10"
+		value=""
+		placeholder="descripcion"
+	></textarea>
+
+	<input
+		type="text"
+		name="size"
+		value=""
+		autocomplete="none"
+		placeholder="Talla"
+	/>
+	<input
+		type="text"
+		name="brand"
+		value=""
+		autocomplete="none"
+		placeholder="Marca"
+	/>
+	<input type="submit" />
+</form>
+
+<% } %>

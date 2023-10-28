@@ -8,6 +8,8 @@ import logger from "morgan";
 import { NODE_ENV } from "./config";
 
 import indexRouter from "./routes/index";
+import categoryRouter from "./routes/categoryRoutes";
+import productRouter from "./routes/productRoutes";
 
 const app = express();
 
@@ -35,6 +37,8 @@ app.use(express.static(path.join(__dirname, "public")));
 // ****************************************************************************
 
 app.use("/", indexRouter);
+app.use("/category", categoryRouter);
+app.use("/product", productRouter);
 // app.use('/users', usersRouter);
 
 // app.use("/uploads", express.static(path.join(path.resolve(), "/uploads")));

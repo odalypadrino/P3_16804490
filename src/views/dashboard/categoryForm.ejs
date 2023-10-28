@@ -1,0 +1,17 @@
+<% if (data) { %>
+<form action="/category/update/<%= data.id %>" method="post">
+	<input
+		type="text"
+		name="name"
+		value="<%= data.name %>"
+		autofocus
+		autocomplete="none"
+	/>
+</form>
+<% } else { %>
+
+<form action="/category/create" method="post">
+	<input type="text" name="name" value="" autofocus autocomplete="none" />
+</form>
+
+<% } %>

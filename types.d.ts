@@ -6,7 +6,7 @@ export interface Product {
 	description: string;
 	size: string;
 	brand: string;
-	status: string;
+	// status: string;
 	createAt: date;
 	updateAt: date;
 }
@@ -15,5 +15,5 @@ export interface Category {
 	id: number;
 	name: string;
 	description: string;
-	status: string;
+	// status: string;
 }

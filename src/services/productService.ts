@@ -3,7 +3,7 @@ import { Optional } from "sequelize";
 import { Product } from "../../types";
 import ProductModel from "../models/Product.model";
 
-export const createProduct = async (data: Optional<Product, "id">) => {
+export const createProduct_Service = async (data: Optional<Product, "id">) => {
 	try {
 		const newProduct = await ProductModel.create(data);
 
@@ -14,7 +14,7 @@ export const createProduct = async (data: Optional<Product, "id">) => {
 	}
 };
 
-export const updateProduct = async (id: number, data: Product) => {
+export const updateProduct_Service = async (id: number, data: Product) => {
 	try {
 		await ProductModel.update(data, { where: { id } });
 	} catch (error) {
@@ -22,7 +22,7 @@ export const updateProduct = async (id: number, data: Product) => {
 	}
 };
 
-export const getProduct = async () => {
+export const getAllProducts_Service = async () => {
 	try {
 		return await ProductModel.findAll();
 	} catch (error) {
@@ -32,9 +32,18 @@ export const getProduct = async () => {
 	}
 };
 
-export const getProduct_By_Category = async (categoryId: number) => {
+export const getProduct_By_Category_Service = async (categoryId: number) => {
 	try {
 		return await ProductModel.findAll({ where: { categoryId } });
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+};
+
+export const getProductById_Service = async (id: string) => {
+	try {
+		return await ProductModel.findByPk(id);
 	} catch (error) {
 		console.log(error);
 		return null;
