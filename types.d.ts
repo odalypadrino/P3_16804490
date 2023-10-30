@@ -11,6 +11,14 @@ export interface Product {
 	updateAt: date;
 }
 
+export interface Image {
+	id: number;
+	url: string;
+	featured: boolean;
+	productId:string
+	// status: string
+}
+
 export interface Category {
 	id: number;
 	name: string;

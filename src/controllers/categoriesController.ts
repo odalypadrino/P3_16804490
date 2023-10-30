@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 import { Category } from "../../types";
+import RouterRender, { RoutesLinks } from "../config/RoutesLinks";
 import {
 	createCategory_Service,
 	getCategories_Service,
@@ -15,13 +16,13 @@ export const getAllCategory_controller = async (
 	try {
 		const categories = await getCategories_Service();
 
-		res.render("dashboard/categoryList", { categories });
+		res.render(RouterRender.dashboard.categoryList, { categories });
 	} catch (error) {}
 };
 
 export const categoryForm_controller = async (_req: Request, res: Response) => {
 	try {
-		res.render("dashboard/categoryForm", { data: null });
+		res.render(RouterRender.dashboard.categoryForm, { data: null });
 	} catch (error) {}
 };
 
@@ -33,7 +34,7 @@ export const categoryFormById_controller = async (
 
 	try {
 		const category = await getCategoryById_Service(id);
-		res.render("dashboard/categoryForm", { data: category });
+		res.render(RouterRender.dashboard.categoryForm, { data: category });
 	} catch (error) {}
 };
 
@@ -48,7 +49,7 @@ export const createCategory_controller = async (
 
 		await createCategory_Service({ name, description });
 
-		res.redirect("/category");
+		res.redirect(RoutesLinks.dashboard.categoryList);
 	} catch (error) {}
 };
 
@@ -62,7 +63,7 @@ export const updateCategory_controller = async (
 	try {
 		await updateCategory_Service(parseInt(id), data);
 
-		res.redirect("/category");
+		res.redirect(RoutesLinks.dashboard.categoryList);
 	} catch (error) {
 		console.log(error);
 	}

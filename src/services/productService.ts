@@ -41,7 +41,7 @@ export const getProduct_By_Category_Service = async (categoryId: number) => {
 	}
 };
 
-export const getProductById_Service = async (id: string) => {
+export const getProductById_Service = async (id: number) => {
 	try {
 		return await ProductModel.findByPk(id);
 	} catch (error) {
