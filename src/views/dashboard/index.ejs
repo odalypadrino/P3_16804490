@@ -1,1 +1,22 @@
-aaaaaaaa
+<!DOCTYPE html>
+<html>
+	<%- include("../template/head") %>
+
+	<body>
+
+    <h1>dashboard</h1>
+		<% products.forEach(element => { %>
+
+		<div><%= element.name %></div>
+		<hr />
+		
+		<% }) %>
+
+		<div class="container">
+			<a href="<%= RoutesLinks.dashboard.categoryList %>"> categorias</a>
+			<a href="<%= RoutesLinks.dashboard.productList %>"> productos</a>
+		</div>
+	</body>
+
+	<%- include("../template/scripts") %>
+</html>

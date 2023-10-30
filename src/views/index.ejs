@@ -3,17 +3,17 @@
 	<%- include("template/head") %>
 
 	<body>
+		<a href="<%= RoutesLinks.dashboard.index %>"> dashboard</a>
+
+		<br />
+		<h2>productos</h2>
+		<hr />
 		<% products.forEach(element => { %>
 
 		<div><%= element.name %></div>
-		<hr />
-		
-		<% }) %>
+		<br />
 
-		<div class="container">
-			<a href="/category"> categorias</a>
-			<a href="/product"> productos</a>
-		</div>
+		<% }) %>
 	</body>
 
 	<%- include("template/scripts") %>

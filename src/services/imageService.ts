@@ -50,12 +50,27 @@ export const getImage_By_Product_Service = async (productId: number) => {
 	}
 };
 
-export const deleteImage_By_Id_service = async (id: number) => {
+export const featuredImage_By_Id_service = async (id: number) => {
 	try {
-		return await ImagesModel.findByPk(id);
+		const img = await ImagesModel.findByPk(id);
+
+		if (!img) return;
+
+		img.featured = !img.featured;
+
+		await img.save();
 	} catch (error) {
 		console.log(error);
-		return null;
+	}
+};
+
+export const deleteImage_By_Id_service = async (id: number) => {
+	try {
+		const img = await ImagesModel.findByPk(id);
+
+		await img?.destroy();
+	} catch (error) {
+		console.log(error);
 	}
 };
 

@@ -1,5 +1,6 @@
 <% if (data) { %>
-<form action="/product/update/<%= data.id %>" method="post">
+<form action="<%= RoutesLinks.dashboard.productFormEdit(data.id) %>" method="post">
+
 	<select name="categoryId">
 		<% categories.forEach(element => { %>
 
@@ -7,6 +8,7 @@
 
 		<% }) %>
 	</select>
+	
 	<input
 		type="text"
 		name="code"
@@ -55,9 +57,12 @@
 	/>
 	<input type="submit" />
 </form>
+
+<a href="<%= RoutesLinks.dashboard.imageForm(data.id) %>">añadir imagenes</a>
+
 <% } else { %>
 
-<form action="/product/create" method="post">
+<form action="<%= RoutesLinks.dashboard.productFormCreate %>" method="post">
 	<select name="categoryId" id="">
 		<% categories.forEach(element => { %>
 

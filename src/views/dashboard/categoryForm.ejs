@@ -1,5 +1,5 @@
 <% if (data) { %>
-<form action="/category/update/<%= data.id %>" method="post">
+<form action="<%= RoutesLinks.dashboard.categoryFormEdit(data.id) %>" method="post">
 	<input
 		type="text"
 		name="name"
@@ -10,7 +10,7 @@
 </form>
 <% } else { %>
 
-<form action="/category/create" method="post">
+<form action="<%= RoutesLinks.dashboard.categoryFormCreate %>" method="post">
 	<input type="text" name="name" value="" autofocus autocomplete="none" />
 </form>
 

@@ -1,6 +1,6 @@
 <% categories.forEach(element => { %>
-<a href="/product/form/<%= element.id %>"><%= element.name %></a>
+<a href="<%= RoutesLinks.dashboard.productForm(element.id) %>"><%= element.name %></a>
 <hr />
 <% }) %>
 
-<a href="/product/form">crear nuevo producto</a>
+<a href="<%= RoutesLinks.dashboard.productForm() %>">crear nuevo producto</a>

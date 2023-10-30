@@ -1,0 +1,23 @@
+<% otherImages.forEach(element => { %>
+
+<img src="<%= element.url %>" alt="ropa" />
+<a href="<%= RoutesLinks.dashboard.imageDelete(product.id,element.id)  %>"
+	>eliminar</a
+>
+
+<% }) %>
+
+<form
+	action="<%= RoutesLinks.dashboard.imageCreate(product.id) %>"
+	method="post"
+>
+	<input
+		type="text"
+		name="url"
+		value=""
+		autofocus
+		autocomplete="none"
+		placeholder="url de imagen"
+	/>
+	<input type="submit" />
+</form>

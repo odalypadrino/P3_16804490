@@ -16,13 +16,13 @@ export const getAllCategory_controller = async (
 	try {
 		const categories = await getCategories_Service();
 
-		res.render(RouterRender.dashboard.categoryList, { categories });
+		res.render(RouterRender.dashboard.categoryList, { categories ,RoutesLinks});
 	} catch (error) {}
 };
 
 export const categoryForm_controller = async (_req: Request, res: Response) => {
 	try {
-		res.render(RouterRender.dashboard.categoryForm, { data: null });
+		res.render(RouterRender.dashboard.categoryForm, { data: null,RoutesLinks });
 	} catch (error) {}
 };
 
@@ -34,7 +34,7 @@ export const categoryFormById_controller = async (
 
 	try {
 		const category = await getCategoryById_Service(id);
-		res.render(RouterRender.dashboard.categoryForm, { data: category });
+		res.render(RouterRender.dashboard.categoryForm, { data: category,RoutesLinks });
 	} catch (error) {}
 };
 

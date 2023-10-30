@@ -1,9 +1,15 @@
 const RouterRender = {
 	dashboard: {
+		index: "dashboard/index",
+
+		// CATEGORIAS
 		categoryList: "dashboard/categoryList",
 		categoryForm: "dashboard/categoryForm",
+
+		// PRODUCTOS
 		productList: "dashboard/productList",
 		productForm: "dashboard/productForm",
+
 		imageForm: "dashboard/imageForm",
 	},
 
@@ -12,19 +18,40 @@ const RouterRender = {
 	},
 };
 
+//
 export const RoutesLinks = {
 	dashboard: {
-		categoryList: "/category",
-		categoryForm: (id: number) => `/category/form/${id}`,
+		index: "/dashboard",
 
-		productList: "/product",
-		productForm: (id: number) => `/product/form/${id}`,
+		// CATEGORIAS
+		categoryList: "/dashboard/category",
+		categoryForm: (id: number) =>
+			`/dashboard/category/form${id ? `/${id}` : ""}`,
 
-		imageForm: "",
+		categoryFormCreate: "/dashboard/category/create",
+		categoryFormEdit: (id: number) => `/dashboard/category/update/${id}`,
+
+		// PRODUCTOS
+		productList: "/dashboard/product",
+		productForm: (id: number) => `/dashboard/product/form${id ? `/${id}` : ""}`,
+
+		productFormCreate: "/dashboard/product/create",
+		productFormEdit: (id: number) => `/dashboard/product/update/${id}`,
+
+		imageForm: (productId: number) =>
+			`/dashboard/product/form/${productId}/image`,
+		imageCreate: (productId: number) =>
+			`/dashboard/product/form/${productId}/image`,
+			imageFeatured: (productId: number, id: string) =>
+			`/dashboard/product/form/${productId}/image/${id}/featured`,
+
+			imageDelete: (productId: number, id: string) =>
+			`/dashboard/product/form/${productId}/image/${id}/delete`,
 	},
-
 	client: {
 		landing: "/",
 	},
 };
+
+// RoutesLinks.dashboard.imageCreate(product.id)
 export default RouterRender;

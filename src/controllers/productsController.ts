@@ -17,7 +17,7 @@ export const getAllProduct_controller = async (
 	try {
 		const categories = await getAllProducts_Service();
 
-		res.render(RouterRender.dashboard.productList, { categories });
+		res.render(RouterRender.dashboard.productList, { categories, RoutesLinks });
 	} catch (error) {}
 };
 
@@ -25,7 +25,11 @@ export const productForm_controller = async (_req: Request, res: Response) => {
 	try {
 		const categories = await getCategories_Service();
 
-		res.render(RouterRender.dashboard.productForm, { data: null, categories });
+		res.render(RouterRender.dashboard.productForm, {
+			data: null,
+			categories,
+			RoutesLinks,
+		});
 	} catch (error) {}
 };
 
@@ -38,9 +42,11 @@ export const productFormById_controller = async (
 	try {
 		const product = await getProductById_Service(parseInt(id));
 		const categories = await getCategories_Service();
+
 		res.render(RouterRender.dashboard.productForm, {
 			data: product,
 			categories,
+			RoutesLinks,
 		});
 	} catch (error) {}
 };
