@@ -1,19 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 	<%- include("template/head") %>
 
 	<body>
-		<a href="<%= RoutesLinks.dashboard.index %>"> dashboard</a>
+		<main class="container">
+			<%- include("components/headerClient", {RoutesLinks}) %>
 
-		<br />
-		<h2>productos</h2>
-		<hr />
-		<% products.forEach(element => { %>
+			<h2 class="text-center">Equipate</h2>
 
-		<div><%= element.name %></div>
-		<br />
+	
 
-		<% }) %>
+			<div class="d-flex flex-wrap justify-content-evenly">
+				<% products.forEach(element => { %> <% if (element.images[0]) { %>
+
+				<!--  -->
+
+				<%- include("components/productItemClient", {element})%>
+				<!--  -->
+				<% } %>
+				<!--  -->
+				<% }) %>
+			</div>
+		</main>
 	</body>
 
 	<%- include("template/scripts") %>

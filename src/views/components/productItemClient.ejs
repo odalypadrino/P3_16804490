@@ -1,0 +1,23 @@
+<a
+	class="text-decoration-none text-black py-2 px-3 flex-grow-1 shadow rounded product__card m-2"
+	href="#"
+>
+	<div class="row">
+		<div class="col-5">
+			<div class="rounded shadow-sm product_image_client">
+				<img
+					class="w-100 h-100 object-fit-cover"
+					src="<%= element.images[0].url %>"
+					alt=""
+				/>
+			</div>
+		</div>
+		<div class="col-7">
+			<div class="d-flex flex-column h-100">
+				<div><%= element.category.name %></div>
+				<div><%= element.name %></div>
+				<div class="">$<%= element.cost %></div>
+			</div>
+		</div>
+	</div>
+</a>

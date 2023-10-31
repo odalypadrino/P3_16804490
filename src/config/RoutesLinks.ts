@@ -15,6 +15,7 @@ const RouterRender = {
 
 	client: {
 		landing: "index",
+		login: "login",
 	},
 };
 
@@ -50,6 +51,7 @@ export const RoutesLinks = {
 	},
 	client: {
 		landing: "/",
+		login:"/login"
 	},
 };
 
