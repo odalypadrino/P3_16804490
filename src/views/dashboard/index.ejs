@@ -1,20 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 	<%- include("../template/head") %>
 
 	<body>
+		<div class="d-flex vh-100">
+			<%- include("../components/headerAdmin", {RoutesLinks}) %>
+			<main class="container-fluid">
+				<!-- <h2 class="text-center">Equipate</h2> -->
 
-    <h1>dashboard</h1>
-		<% products.forEach(element => { %>
+				<div class="d-flex flex-wrap justify-content-center">
+					<a
+						class="text-decoration-none"
+						href="<%= RoutesLinks.dashboard.categoryList %>"
+					>
+						<div
+							class="d-flex flex-column align-items-center justify-content-evenly text-black p-5 rounded shadow-sm m-2 linkToModule"
+						>
+							<h5 class="mb-3">Categorías</h5>
 
-		<div><%= element.name %></div>
-		<hr />
-		
-		<% }) %>
+							<h6>00</h6>
+						</div>
+					</a>
+					<a
+						class="text-decoration-none"
+						href="<%= RoutesLinks.dashboard.productList %>"
+					>
+						<div
+							class="d-flex flex-column align-items-center justify-content-evenly text-black p-5 rounded shadow-sm m-2 linkToModule"
+						>
+							<h5 class="mb-3">Productos</h5>
 
-		<div class="container">
-			<a href="<%= RoutesLinks.dashboard.categoryList %>"> categorias</a>
-			<a href="<%= RoutesLinks.dashboard.productList %>"> productos</a>
+							<h6>00</h6>
+						</div>
+					</a>
+				</div>
+			</main>
 		</div>
 	</body>
 

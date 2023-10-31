@@ -1,9 +1,25 @@
+.loginStyle__Container {
+	width: 100vw;
+	height: 100vh;
+}
+
+.loginStyle {
+	max-width: 500px;
+}
+
+.linkToModule {
+	background: #6ff3;
+}
+.linkToModule:hover {
+	background: #6bb3;
+}
+
 .product__card {
 	/* max-width: fit-content; */
-
 	min-width: 250px;
 	max-width: 350px;
 }
+
 .product_image_client {
 	overflow: hidden;
 	/* border: 1px solid black; */

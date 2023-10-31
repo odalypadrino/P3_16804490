@@ -51,9 +51,11 @@ export const RoutesLinks = {
 	},
 	client: {
 		landing: "/",
-		login:"/login"
+		login:"/login",
+		signOut:"/sign_out"
 	},
 };
 
+RoutesLinks.dashboard.categoryList
 // RoutesLinks.dashboard.imageCreate(product.id)
 export default RouterRender;
