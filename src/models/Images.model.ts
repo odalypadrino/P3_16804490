@@ -1,17 +1,14 @@
 import { DataTypes, Model } from "sequelize";
 import db from "../db";
 import ProductModel from "./Product.model";
+import { ImagesAttributes } from "../../types";
 
-interface ImagesAttributes {
-	url: string;
-	featured: boolean;
-	status: string;
-}
 
 class ImagesModel extends Model<ImagesAttributes> implements ImagesAttributes {
 	public url!: string;
 	public featured!: boolean;
 	public status!: string;
+	public productId!: number;
 
 	public readonly createdAt!: Date;
 	public readonly updatedAt!: Date;
@@ -20,6 +17,7 @@ class ImagesModel extends Model<ImagesAttributes> implements ImagesAttributes {
 ImagesModel.init(
 	{
 		url: { type: DataTypes.STRING(512), allowNull: false },
+		productId: { type: DataTypes.NUMBER, allowNull: false },
 		featured: {
 			type: DataTypes.BOOLEAN,
 			allowNull: false,

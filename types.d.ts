@@ -11,12 +11,12 @@ export interface Product {
 	updateAt: date;
 }
 
-export interface Image {
-	id: number;
+
+export interface ImagesAttributes {
 	url: string;
 	featured: boolean;
-	productId:string
-	// status: string
+	status: string;
+	productId: number;
 }
 
 export interface Category {

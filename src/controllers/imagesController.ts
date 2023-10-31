@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 
-import { Image } from "../../types";
 import RouterRender, { RoutesLinks } from "../config/RoutesLinks";
 import {
 	createImage_Service,
@@ -9,6 +8,7 @@ import {
 	getImage_By_Product_Service,
 } from "../services/imageService";
 import { getProductById_Service } from "../services/productService";
+import { ImagesAttributes } from "../../types";
 
 // export const getAllImage_controller = async (
 // 	_req: Request,
@@ -41,10 +41,10 @@ export const imageForm_controller = async (req: Request, res: Response) => {
 
 export const createImage_controller = async (req: Request, res: Response) => {
 	const { productId } = req.params;
-	const data: Image = req.body;
+	const data: ImagesAttributes = req.body;
 
 	try {
-		await createImage_Service({ ...data, productId });
+		await createImage_Service({ ...data, productId: parseInt(productId) });
 
 		res.redirect("back");
 	} catch (error) {}
@@ -61,7 +61,6 @@ export const featuredImage_controller = async (req: Request, res: Response) => {
 		console.log(error);
 	}
 };
-
 
 export const deleteImage_controller = async (req: Request, res: Response) => {
 	const { id } = req.params;

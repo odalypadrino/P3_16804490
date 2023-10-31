@@ -1,9 +1,7 @@
-import { Optional } from "sequelize";
-
-import { Image } from "../../types";
+import { ImagesAttributes } from "../../types";
 import ImagesModel from "../models/Images.model";
 
-export const createImage_Service = async (data: Optional<Image, "id">) => {
+export const createImage_Service = async (data: ImagesAttributes) => {
 	try {
 		const newImage = await ImagesModel.create(data);
 
