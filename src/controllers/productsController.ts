@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 
-import { Product } from "../../types";
 import {
 	createProduct_Service,
 	getAllProducts_Service,
@@ -9,15 +8,16 @@ import {
 } from "../services/productService";
 import { getCategories_Service } from "../services/categoryService";
 import RouterRender, { RoutesLinks } from "../config/RoutesLinks";
+import { ProductAttributes } from "../../types";
 
 export const getAllProduct_controller = async (
 	_req: Request,
 	res: Response
 ) => {
 	try {
-		const categories = await getAllProducts_Service();
+		const products = await getAllProducts_Service();
 
-		res.render(RouterRender.dashboard.productList, { categories, RoutesLinks });
+		res.render(RouterRender.dashboard.productList, { products, RoutesLinks });
 	} catch (error) {}
 };
 
@@ -52,25 +52,29 @@ export const productFormById_controller = async (
 };
 
 export const createProduct_controller = async (req: Request, res: Response) => {
-	const data: Product = req.body;
+	const data: ProductAttributes = req.body;
 
 	try {
-		await createProduct_Service(data);
+		const newProduct = await createProduct_Service(data);
 
-		res.redirect(RoutesLinks.dashboard.productList);
+		if (!newProduct) return res.redirect(RoutesLinks.dashboard.index);
+
+		res.redirect(RoutesLinks.dashboard.imageForm(newProduct.id));
 	} catch (error) {}
 };
 
 export const updateProduct_controller = async (req: Request, res: Response) => {
 	const { id } = req.params;
-	const data: Product = req.body;
+	const data: ProductAttributes = req.body;
 
 	console.log(data);
 
 	try {
-		await updateProduct_Service(parseInt(id), data);
+		const product = await updateProduct_Service(parseInt(id), data);
 
-		res.redirect(RoutesLinks.dashboard.productList);
+		if (!product) return res.redirect(RoutesLinks.dashboard.index);
+
+		res.redirect(RoutesLinks.dashboard.imageForm(product.id));
 	} catch (error) {
 		console.log(error);
 	}

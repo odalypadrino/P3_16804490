@@ -1,11 +1,9 @@
-import { Optional } from "sequelize";
-
-import { Product } from "../../types";
+import { ProductAttributes } from "../../types";
 import ProductModel from "../models/Product.model";
 import ImagesModel from "../models/Images.model";
 import CategoryModel from "../models/Category.model";
 
-export const createProduct_Service = async (data: Optional<Product, "id">) => {
+export const createProduct_Service = async (data: ProductAttributes) => {
 	try {
 		const newProduct = await ProductModel.create(data);
 
@@ -16,18 +14,28 @@ export const createProduct_Service = async (data: Optional<Product, "id">) => {
 	}
 };
 
-export const updateProduct_Service = async (id: number, data: Product) => {
+export const updateProduct_Service = async (
+	id: number,
+	data: ProductAttributes
+) => {
 	try {
 		await ProductModel.update(data, { where: { id } });
+
+		return await getProductById_Service(id);
 	} catch (error) {
 		console.log(error);
+
+		return null;
 	}
 };
 
 export const getAllProducts_Service = async () => {
 	try {
 		return await ProductModel.findAll({
-			include: [{ model: ImagesModel }, { model: CategoryModel }],
+			include: [
+				{ model: ImagesModel },
+				{ model: CategoryModel, as: "category" },
+			],
 		});
 	} catch (error) {
 		console.log(error);

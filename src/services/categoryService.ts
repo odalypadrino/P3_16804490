@@ -1,9 +1,7 @@
-import { Optional } from "sequelize";
-
-import { Category } from "../../types";
 import CategoryModel from "../models/Category.model";
+import { CategoryAttributes } from "../../types";
 
-export const createCategory_Service = async (data: Optional<Category, "id">) => {
+export const createCategory_Service = async (data: CategoryAttributes) => {
 	try {
 		const newProduct = await CategoryModel.create(data);
 
@@ -14,7 +12,10 @@ export const createCategory_Service = async (data: Optional<Category, "id">) => 
 	}
 };
 
-export const updateCategory_Service = async (id: number, data: Category) => {
+export const updateCategory_Service = async (
+	id: number,
+	data: CategoryAttributes
+) => {
 	try {
 		await CategoryModel.update(data, { where: { id } });
 	} catch (error) {

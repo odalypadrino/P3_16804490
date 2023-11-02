@@ -1,27 +1,26 @@
-export interface Product {
+export interface ProductAttributes {
 	id: number;
 	code: string;
 	name: string;
 	cost: number;
 	description: string;
-	size: string;
-	brand: string;
-	// status: string;
-	createAt: date;
-	updateAt: date;
+	size: string | null;
+	brand: string | null;
+	status: string;
+	categoryId: number;
 }
 
-
 export interface ImagesAttributes {
+	id: number;
 	url: string;
 	featured: boolean;
 	status: string;
 	productId: number;
 }
 
-export interface Category {
+export interface CategoryAttributes {
 	id: number;
 	name: string;
 	description: string;
-	// status: string;
+	status: string;
 }

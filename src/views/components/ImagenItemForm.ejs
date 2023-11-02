@@ -1,0 +1,18 @@
+<div class="card m-2 cardImagesProduct">
+	<img class="card-img-top" src="<%= element.url %>" alt="ropa" />
+	<div class="card-body">
+		<div class="d-flex justify-content-evenly">
+			<a
+				class="btn btn-info"
+				href="<%= RoutesLinks.dashboard.imageFeatured(product.id,element.id)  %>"
+				>Destacado</a
+			>
+
+			<a
+				class="btn btn-danger"
+				href="<%= RoutesLinks.dashboard.imageDelete(product.id,element.id)  %>"
+				>eliminar</a
+			>
+		</div>
+	</div>
+</div>
