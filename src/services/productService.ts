@@ -61,3 +61,16 @@ export const getProductById_Service = async (id: number) => {
 		return null;
 	}
 };
+
+
+export const getProductCount_service = async () => {
+
+	try {
+		return await ProductModel.count()
+	} catch (error) {
+		console.log(error);
+		
+		return 0
+	}
+	
+}

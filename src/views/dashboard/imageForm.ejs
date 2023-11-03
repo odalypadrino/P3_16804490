@@ -18,7 +18,7 @@
 						<!--  -->
 						<div class="d-flex flex-grap align-items-start">
 							<% otherImages.forEach(element => { %> <%-
-								include("../components/ImagenItemForm", {element,RoutesLinks})%>
+							include("../components/ImagenItemForm", {element,RoutesLinks})%>
 							<% }) %>
 						</div>
 
@@ -37,10 +37,19 @@
 									autofocus
 									autocomplete="none"
 									placeholder="Url de imagen"
+									required
 								/>
 							</div>
 
-							<input class="btn btn-primary mt-3" type="submit" />
+							<div class="my-3">
+								<input class="btn btn-primary" type="submit" value="Agregar" />
+
+								<a
+									class="btn btn-info"
+									href="<%= RoutesLinks.dashboard.productList %>"
+									>Terminar</a
+								>
+							</div>
 						</form>
 					</div>
 				</main>

@@ -10,11 +10,15 @@
 
 	
 
-			<div class="d-flex  justify-content-evenly">
-				<% products.forEach(element => { %> <% if (element.images[0]) { %>
+			<div class="d-flex justify-content-center flex-wrap">
+				<% products.forEach(element => { %>
+					
+					<!--  -->
+					<% if (element.images[0]) { %>
 
 				<!--  -->
 
+				
 				<%- include("components/productItemClient", {element})%>
 				<!--  -->
 				<% } %>

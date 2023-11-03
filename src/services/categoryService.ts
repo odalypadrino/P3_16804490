@@ -40,3 +40,16 @@ export const getCategoryById_Service = async (id: string) => {
 		return null;
 	}
 };
+
+
+export const getCategoryCount_service = async () => {
+
+	try {
+		return await CategoryModel.count()
+	} catch (error) {
+		console.log(error);
+		
+		return 0
+	}
+	
+}
