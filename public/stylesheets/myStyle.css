@@ -1,4 +1,12 @@
 
+.MaxWidthLandingImage{
+	height: 250px;
+}
+
+.MaxWidthLandingModalImage{
+	height: 400px;
+}
+
 .loginStyle__Container {
 	width: 100vw;
 	height: 100vh;
