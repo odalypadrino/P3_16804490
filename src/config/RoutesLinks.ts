@@ -15,6 +15,7 @@ const RouterRender = {
 
 	client: {
 		landing: "index",
+		search: "search",
 		login: "login",
 	},
 };
@@ -43,19 +44,20 @@ export const RoutesLinks = {
 			`/dashboard/product/form/${productId}/image`,
 		imageCreate: (productId: number) =>
 			`/dashboard/product/form/${productId}/image`,
-			imageFeatured: (productId: number, id: string) =>
+		imageFeatured: (productId: number, id: string) =>
 			`/dashboard/product/form/${productId}/image/${id}/featured`,
 
-			imageDelete: (productId: number, id: string) =>
+		imageDelete: (productId: number, id: string) =>
 			`/dashboard/product/form/${productId}/image/${id}/delete`,
 	},
 	client: {
 		landing: "/",
-		login:"/login",
-		signOut:"/sign_out"
+		search: "/search",
+		login: "/login",
+		signOut: "/sign_out",
 	},
 };
 
-RoutesLinks.dashboard.categoryList
+RoutesLinks.dashboard.categoryList;
 // RoutesLinks.dashboard.imageCreate(product.id)
 export default RouterRender;

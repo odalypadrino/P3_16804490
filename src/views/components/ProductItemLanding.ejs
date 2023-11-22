@@ -16,8 +16,11 @@
 			<div class="portfolio-caption-subheading text-muted text-left">
 				<%= element.name %>
 			</div>
-			<!-- <div class="portfolio-caption-heading"> <%= element.cost %></div> -->
+			<div class="portfolio-caption-heading"> <%= element.cost %> $</div>
 		</div>
+	<div class="d-grid gap-2">
+		<button type="button" name="" id="" class="btn btn-primary">Comprar</button>
+	</div>
 	</div>
 
 	<div
@@ -79,6 +82,9 @@
 										<%= element.category.name %>
 									</li>
 								</ul>
+								<div class="d-grid gap-2 my-3">
+									<button type="button" name="" id="" class="btn btn-primary">Comprar</button>
+								</div>
 								<button
 									class="btn btn-primary btn-xl text-uppercase"
 									data-bs-dismiss="modal"

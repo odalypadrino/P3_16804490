@@ -1,0 +1,62 @@
+<form class="my-5" action="/search" method="get">
+	<div class="row">
+		<div class="col-12">
+			<input
+				type="text"
+				name="text"
+				class="form-control form-control-lg d-inline"
+				placeholder="Buscar"
+			/>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-4">
+			<div class="mb-3">
+				<label for="" class="form-label">Categoria</label>
+				<select class="form-select" name="categoryId" id="">
+					<option selected value="">Todo</option>
+
+					<% QueryData.filters.categories.forEach(element => { %>
+					<option value="<%= element.id %>"><%= element.name %></option>
+					<% }) %>
+				</select>
+			</div>
+		</div>
+
+		<div class="col-4">
+			<div class="mb-3">
+				<label for="" class="form-label">Talla</label>
+				<select class="form-select" name="size" id="">
+					<option selected value="">Todo</option>
+					<% QueryData.filters.size.forEach(element => { %>
+					<option value="<%= element %>"><%= element %></option>
+					<% }) %>
+				</select>
+			</div>
+		</div>
+
+		<div class="col-4">
+			<div class="mb-3">
+				<label for="" class="form-label">Marca</label>
+				<select class="form-select" name="brand" id="">
+					<option selected value="">Todo</option>
+
+					<% QueryData.filters.brand.forEach(element => { %>
+					<option value="<%= element %>"><%= element %></option>
+					<% }) %>
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<div class="row justify-content-center align-items-center g-2">
+		<div class="col-12">
+			<input
+				type="submit"
+				class="btn btn-primary btn-lg w-100"
+				value="Buscar"
+			/>
+		</div>
+	</div>
+</form>

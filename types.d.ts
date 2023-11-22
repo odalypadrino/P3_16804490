@@ -24,3 +24,10 @@ export interface CategoryAttributes {
 	description: string;
 	status: string;
 }
+
+export interface QueryProduct {
+	text: string | null;
+	brand: string | null;
+	size: string | null;
+	categoryId: string | null;
+}

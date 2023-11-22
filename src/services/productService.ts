@@ -1,7 +1,8 @@
-import { ProductAttributes } from "../../types";
+import { ProductAttributes, QueryProduct } from "../../types";
 import ProductModel from "../models/Product.model";
 import ImagesModel from "../models/Images.model";
 import CategoryModel from "../models/Category.model";
+import { Op, Sequelize } from "sequelize";
 
 export const createProduct_Service = async (data: ProductAttributes) => {
 	try {
@@ -62,15 +63,80 @@ export const getProductById_Service = async (id: number) => {
 	}
 };
 
+export const getAllProductsByQuery_Service = async ({
+	text,
+	brand,
+	size,
+	categoryId,
+}: QueryProduct) => {
+	const andInWhere = [];
 
-export const getProductCount_service = async () => {
+	if (text && text.trim())
+		andInWhere.push({
+			[Op.or]: [
+				{ name: { [Op.substring]: text } },
+				{ description: { [Op.substring]: text } },
+			],
+		});
+
+	if (brand) andInWhere.push({ brand });
+	if (size) andInWhere.push({ size });
+	if (categoryId) andInWhere.push({ categoryId });
 
 	try {
-		return await ProductModel.count()
+		return await ProductModel.findAll({
+			where: {
+				[Op.and]: andInWhere,
+			},
+			include: [
+				{ model: ImagesModel },
+				{ model: CategoryModel, as: "category" },
+			],
+		});
 	} catch (error) {
 		console.log(error);
-		
-		return 0
+
+		return null;
 	}
-	
-}
+};
+
+export const getProductCount_service = async () => {
+	try {
+		return await ProductModel.count();
+	} catch (error) {
+		console.log(error);
+
+		return 0;
+	}
+};
+export const getTallasOfProducts_service = async () => {
+	try {
+		const tallas = (
+			await ProductModel.findAll({
+				attributes: [[Sequelize.fn("DISTINCT", Sequelize.col("size")), "size"]],
+			})
+		).map((t) => t.size);
+
+		return tallas;
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+};
+
+export const getMarcasOfProducts_service = async () => {
+	try {
+		const tallas = (
+			await ProductModel.findAll({
+				attributes: [
+					[Sequelize.fn("DISTINCT", Sequelize.col("brand")), "brand"],
+				],
+			})
+		).map((t) => t.brand);
+
+		return tallas;
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+};
