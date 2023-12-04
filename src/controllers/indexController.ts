@@ -14,7 +14,10 @@ export const mainPage = async (_req: Request, res: Response) => {
 	res.render(RouterRender.client.landing, {
 		products,
 		RoutesLinks,
-		QueryData: { filters },
+		QueryData: {
+			query: { text: "", brand: "", size: "", categoryId: "" },
+			filters,
+		},
 	});
 };
 
@@ -35,7 +38,7 @@ export const searhPage = async (req: Request, res: Response) => {
 	res.render(RouterRender.client.search, {
 		products,
 		RoutesLinks,
-		QueryData: { filters },
+		QueryData: { query: { text, brand, size, categoryId }, filters },
 	});
 };
 
