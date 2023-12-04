@@ -8,10 +8,13 @@ import { getQueryFilters_service } from "../services/querys";
 
 export const mainPage = async (_req: Request, res: Response) => {
 	const products = await getAllProducts_Service();
+
+	const filters = await getQueryFilters_service();
+
 	res.render(RouterRender.client.landing, {
 		products,
 		RoutesLinks,
-		QueryData: {},
+		QueryData: { filters },
 	});
 };
 
