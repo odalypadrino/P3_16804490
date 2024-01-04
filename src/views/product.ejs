@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+	<%- include("template/head") %>
+
+	<body id="page-top">
+		<!-- Navigation-->
+		<nav
+			class="navbar navbar-expand-lg navbar-dark fixed-top navbar-shrink"
+			id="mainNav"
+		>
+			<div class="container">
+				<a class="navbar-brand" href="/">
+					Odaly Sport
+					<!-- <img src="assets/img/navbar-logo.svg" alt="..."				/> -->
+				</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarResponsive"
+					aria-controls="navbarResponsive"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					Menu
+					<i class="fas fa-bars ms-1"></i>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+					<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+						<li class="nav-item">
+							<a class="nav-link" href="<%= RoutesLinks.client.login %>"
+								>Login</a
+							>
+						</li>
+						<!-- <li class="nav-item">
+							<a class="nav-link" href="#services">Services</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#portfolio">Portfolio</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#about">About</a>
+						</li>
+						<li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+						<li class="nav-item">
+							<a class="nav-link" href="#contact">Contact</a>
+						</li> -->
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- Masthead-->
+		<!-- <header class="masthead">
+			<div class="container">
+				<div class="masthead-subheading">Bienvenido a</div>
+				<div class="masthead-heading text-uppercase">Odaly Sport</div>
+				<a class="btn btn-primary btn-xl text-uppercase" href="#services"
+					>Mas information</a
+				>
+			</div>
+		</header> -->
+
+		<section class="page-section bg-light" id="portfolio">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-6">
+						<div
+							id="carouselExampleIndicators"
+							class="carousel slide"
+							data-bs-ride="carousel"
+						>
+							<div class="carousel-indicators">
+								<button
+									type="button"
+									data-bs-target="#carouselExampleIndicators"
+									data-bs-slide-to="0"
+									class="active"
+									aria-current="true"
+									aria-label="Slide 1"
+								></button>
+								<button
+									type="button"
+									data-bs-target="#carouselExampleIndicators"
+									data-bs-slide-to="1"
+									aria-label="Slide 2"
+								></button>
+								<button
+									type="button"
+									data-bs-target="#carouselExampleIndicators"
+									data-bs-slide-to="2"
+									aria-label="Slide 3"
+								></button>
+							</div>
+							<div class="carousel-inner">
+								<% product.images.forEach((i,index) => { %>
+								<!--  -->
+
+								<div
+									class="carousel-item <% if (index===0) { %> active <% } %>"
+								>
+									<img src="<%= i.url %>" class="d-block w-100" alt="..." />
+								</div>
+
+								<!--  -->
+								<% }) %>
+							</div>
+							<button
+								class="carousel-control-prev"
+								type="button"
+								data-bs-target="#carouselExampleIndicators"
+								data-bs-slide="prev"
+							>
+								<span
+									class="carousel-control-prev-icon"
+									aria-hidden="true"
+								></span>
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button
+								class="carousel-control-next"
+								type="button"
+								data-bs-target="#carouselExampleIndicators"
+								data-bs-slide="next"
+							>
+								<span
+									class="carousel-control-next-icon"
+									aria-hidden="true"
+								></span>
+								<span class="visually-hidden">Next</span>
+							</button>
+						</div>
+					</div>
+
+					<div class="col-sm-12 col-md-6 mt-sm-3">
+						<h5 style="font-size: 2rem"><%= product.name %></h5>
+
+						<p><%= product.description %></p>
+						<ul class="list-inline mt-2">
+							<li>
+								<strong>Marca:</strong>
+								<%= product.brand %>
+							</li>
+
+							<li>
+								<strong>Talla:</strong>
+								<%= product.size %>
+							</li>
+
+							<li>
+								<strong>Categoría:</strong>
+								<%= product.category.name %>
+							</li>
+						</ul>
+
+						<p style="font-size: 2rem">$ <%= product.cost %></p>
+						<form action="<%= RoutesLinks.client.credicard %>" method="post">
+							<input type="hidden" name="productId" value="<%= product.id %>" />
+
+							<div class="mb-3">
+								<label for="quantity" class="form-label">Cantidad</label>
+
+								<input
+									type="number"
+									name="quantity"
+									idquantity=""
+									class="form-control"
+									value="1"
+								/>
+							</div>
+
+							<button class="btn btn-primary w-100">Comprar</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<%- include("template/scripts") %>
+		<script>
+			// TODO: hacer validacion de el input number
+		</script>
+	</body>
+</html>

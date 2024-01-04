@@ -24,7 +24,7 @@ passport.deserializeUser((username: string, done) => {
 });
 
 const autenticateMidleware = passport.authenticate("local", {
-	successRedirect: RoutesLinks.dashboard.index,
+	successRedirect: RoutesLinks.admin.index,
 	failureRedirect: RoutesLinks.client.login,
 });
 

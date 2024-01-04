@@ -56,7 +56,12 @@ export const getProduct_By_Category_Service = async (categoryId: number) => {
 
 export const getProductById_Service = async (id: number) => {
 	try {
-		return await ProductModel.findByPk(id);
+		return await ProductModel.findByPk(id, {
+			include: [
+				{ model: ImagesModel },
+				{ model: CategoryModel, as: "category" },
+			],
+		});
 	} catch (error) {
 		console.log(error);
 		return null;

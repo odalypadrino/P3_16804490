@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+	<%- include("../template/head") %>
+
+	<body id="page-top">
+		<!-- Navigation-->
+		<nav
+			class="navbar navbar-expand-lg navbar-dark fixed-top navbar-shrink"
+			id="mainNav"
+		>
+			<div class="container">
+				<a class="navbar-brand" href="/">
+					Odaly Sport
+					<!-- <img src="assets/img/navbar-logo.svg" alt="..."				/> -->
+				</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarResponsive"
+					aria-controls="navbarResponsive"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					Menu
+					<i class="fas fa-bars ms-1"></i>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+					<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+						<li class="nav-item">
+							<a class="nav-link" href="<%= RoutesLinks.client.login %>"
+								>Login</a
+							>
+						</li>
+						<!-- <li class="nav-item">
+							<a class="nav-link" href="#services">Services</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#portfolio">Portfolio</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#about">About</a>
+						</li>
+						<li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+						<li class="nav-item">
+							<a class="nav-link" href="#contact">Contact</a>
+						</li> -->
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- Masthead-->
+		<!-- <header class="masthead">
+			<div class="container">
+				<div class="masthead-subheading">Bienvenido a</div>
+				<div class="masthead-heading text-uppercase">Odaly Sport</div>
+				<a class="btn btn-primary btn-xl text-uppercase" href="#services"
+					>Mas information</a
+				>
+			</div>
+		</header> -->
+
+		<section class="page-section bg-light" id="portfolio">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-4">
+						<div
+							id="carouselExampleIndicators"
+							class="carousel slide"
+							data-bs-ride="carousel"
+						>
+							<div class="carousel-inner">
+								<div class="carousel-item active">
+									<img
+										src="<%= product.images[0].url %>"
+										class="d-block w-100"
+										alt="..."
+									/>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-12 mt-sm-5 col-md-8">
+						<div class="">
+							<div class="card mb-4">
+								<div class="card-header py-3">
+									<h5 class="mb-0"><%= product.name %></h5>
+								</div>
+								<div class="card-body">
+									<ul class="list-group list-group-flush">
+										<li
+											class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0"
+										>
+											Producto
+											<span>$ <%= product.cost %></span>
+										</li>
+										<li
+											class="list-group-item d-flex justify-content-between align-items-center px-0"
+										>
+											Cantidad
+											<span><%= quantity %></span>
+										</li>
+										<li
+											class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3"
+										>
+											<div>
+												<strong>Monto total</strong>
+												<strong>
+													<p class="mb-0">(incluye IVA)</p>
+												</strong>
+											</div>
+											<span><strong>$ <%= total %></strong></span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Credit card form -->
+		<section class="page-section bg-light">
+			<div class="container d-flex justify-content-center">
+				<div class="mb-4">
+					<div class="card mb-4">
+						<div class="card-header py-3">
+							<h5 class="mb-0">Datos de la tarjeta de credito</h5>
+						</div>
+						<div class="card-body">
+							<form>
+								<div class="row">
+									<div class="col-sm-12 col-md-6 mb-3">
+										<div class="form-outline">
+											<label class="form-label" for="formNameOnCard"
+												>Nombre del titular
+											</label>
+											<input
+												type="text"
+												id="formNameOnCard"
+												class="form-control"
+											/>
+										</div>
+									</div>
+									<div class="col-sm-12 col-md-6 mb-3">
+										<div class="form-outline">
+											<label class="form-label" for="formCardNumber">
+												Número de la tarjeta de crédito
+											</label>
+											<input
+												type="text"
+												id="formCardNumber"
+												class="form-control"
+											/>
+										</div>
+									</div>
+								</div>
+
+								<div class="row mb-4">
+									<div class="col-sm-12 col-md-6 mb-3">
+										<div class="form-outline">
+											<label class="form-label" for="formExpiration"
+												>Fecha de expiración (MM/AA)</label
+											>
+											<div class="row">
+												<div class="col-6">
+													<input
+														type="text"
+														id="formExpiration"
+														class="form-control"
+														placeholder="MM"
+													/>
+												</div>
+												<div class="col-6">
+													<input
+														type="text"
+														id="formExpiration"
+														class="form-control"
+														placeholder="AA"
+													/>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-12 col-md-6 mb-3">
+										<div class="form-outline">
+											<label class="form-label" for="formCVV">CVV</label>
+											<input type="text" id="formCVV" class="form-control" />
+										</div>
+									</div>
+								</div>
+
+								<button
+									class="btn btn-primary btn-lg btn-block w-100"
+									type="submit"
+								>
+									Pagar
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Credit card form -->
+
+		<%- include("../template/scripts") %>
+	</body>
+</html>

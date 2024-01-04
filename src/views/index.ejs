@@ -26,7 +26,17 @@
 					<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
 						<li class="nav-item">
 							<a class="nav-link" href="<%= RoutesLinks.client.login %>"
+								>Admin</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="<%= RoutesLinks.client.client_login %>"
 								>Login</a
+							>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="<%= RoutesLinks.client.client_register %>"
+								>Registrate</a
 							>
 						</li>
 						<!-- <li class="nav-item">
@@ -52,7 +62,7 @@
 				<div class="masthead-subheading">Bienvenido a</div>
 				<div class="masthead-heading text-uppercase">Odaly Sport</div>
 				<a class="btn btn-primary btn-xl text-uppercase" href="#services"
-					>Mas information</a
+					>Más información</a
 				>
 			</div>
 		</header>
@@ -175,5 +185,6 @@
 		<!-- Portfolio item 1 modal popup-->
 
 		<%- include("template/scripts") %>
+		<%- include("template/landingScripts") %>
 	</body>
 </html>

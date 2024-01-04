@@ -6,7 +6,7 @@ import { getCategoryCount_service } from "../services/categoryService";
 export const mainPage = async (_req: Request, res: Response) => {
 	const productCount = await getProductCount_service();
 	const categoryCount = await getCategoryCount_service();
-	res.render(RouterRender.dashboard.index, {
+	res.render(RouterRender.admin.index, {
 		productCount,
 		categoryCount,
 		RoutesLinks,

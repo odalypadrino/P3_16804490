@@ -16,7 +16,7 @@ export const getAllCategory_controller = async (
 	try {
 		const categories = await getCategories_Service();
 
-		res.render(RouterRender.dashboard.categoryList, {
+		res.render(RouterRender.admin.categoryList, {
 			categories,
 			RoutesLinks,
 		});
@@ -25,7 +25,7 @@ export const getAllCategory_controller = async (
 
 export const categoryForm_controller = async (_req: Request, res: Response) => {
 	try {
-		res.render(RouterRender.dashboard.categoryForm, {
+		res.render(RouterRender.admin.categoryForm, {
 			data: null,
 			RoutesLinks,
 		});
@@ -40,7 +40,7 @@ export const categoryFormById_controller = async (
 
 	try {
 		const category = await getCategoryById_Service(id);
-		res.render(RouterRender.dashboard.categoryForm, {
+		res.render(RouterRender.admin.categoryForm, {
 			data: category,
 			RoutesLinks,
 		});
@@ -56,7 +56,7 @@ export const createCategory_controller = async (
 	try {
 		await createCategory_Service(data);
 
-		res.redirect(RoutesLinks.dashboard.categoryList);
+		res.redirect(RoutesLinks.admin.categoryList);
 	} catch (error) {}
 };
 
@@ -70,7 +70,7 @@ export const updateCategory_controller = async (
 	try {
 		await updateCategory_Service(parseInt(id), data);
 
-		res.redirect(RoutesLinks.dashboard.categoryList);
+		res.redirect(RoutesLinks.admin.categoryList);
 	} catch (error) {
 		console.log(error);
 	}

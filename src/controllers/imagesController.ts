@@ -29,7 +29,7 @@ export const imageForm_controller = async (req: Request, res: Response) => {
 		const product = await getProductById_Service(parseInt(productId));
 		const otherImages = await getImage_By_Product_Service(parseInt(productId));
 
-		res.render(RouterRender.dashboard.imageForm, {
+		res.render(RouterRender.admin.imageForm, {
 			product,
 			otherImages,
 			RoutesLinks,

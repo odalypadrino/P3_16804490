@@ -9,7 +9,8 @@ import passport from "passport";
 import { NODE_ENV, SECRET_WORD } from "./config";
 
 import indexRouter from "./routes/index";
-import dashboardRouter from "./routes/dashboardRoutes";
+import clientRouter from "./routes/clientRoutes";
+import adminRoutes from "./routes/adminRoutes";
 import categoryRouter from "./routes/categoryRoutes";
 import productRouter from "./routes/productRoutes";
 
@@ -49,9 +50,10 @@ app.use(passport.session());
 // ****************************************************************************
 
 app.use("/", indexRouter);
-app.use("/dashboard", dashboardRouter);
-app.use("/dashboard/category", categoryRouter);
-app.use("/dashboard/product", productRouter);
+app.use("/client", clientRouter);
+app.use("/admin/dashboard", adminRoutes);
+app.use("/admin/dashboard/category", categoryRouter);
+app.use("/admin/dashboard/product", productRouter);
 // app.use('/users', usersRouter);
 
 // app.use("/uploads", express.static(path.join(path.resolve(), "/uploads")));
