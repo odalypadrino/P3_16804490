@@ -55,6 +55,12 @@ export const client_loginPage = async (_req: Request, res: Response) => {
 	res.render(RouterRender.client.client_login, { RoutesLinks });
 };
 
+export const client_dashboardPage = async (_req: Request, res: Response) => {
+	// const products = await getAllProducts_Service();
+
+	res.render(RouterRender.client.dashboard, { RoutesLinks });
+};
+
 export const client_registerPage = async (_req: Request, res: Response) => {
 	// const products = await getAllProducts_Service();
 
@@ -68,7 +74,7 @@ export const client_credicardPage = async (req: Request, res: Response) => {
 		const { productId, quantity } = req.body;
 
 		const product = await getProductById_Service(parseInt(productId));
-		
+
 		const total = product ? product.cost * quantity : 0;
 
 		res.render(RouterRender.client.credicard, {
@@ -76,6 +82,23 @@ export const client_credicardPage = async (req: Request, res: Response) => {
 			product,
 			quantity,
 			total,
+		});
+	} catch (error) {}
+};
+
+export const client_pay_confirmPage = async (_req: Request, res: Response) => {
+	// const products = await getAllProducts_Service();
+
+	try {
+		// const { productId, quantity } = req.body;
+		const data = {};
+		// const product = await getProductById_Service(parseInt(productId));
+
+		// const total = product ? product.cost * quantity : 0;
+
+		res.render(RouterRender.client.pay_confirm, {
+			RoutesLinks,
+			data,
 		});
 	} catch (error) {}
 };

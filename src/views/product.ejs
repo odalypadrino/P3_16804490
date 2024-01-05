@@ -98,7 +98,15 @@
 								<div
 									class="carousel-item <% if (index===0) { %> active <% } %>"
 								>
-									<img src="<%= i.url %>" class="d-block w-100" alt="..." />
+									<div class="d-block w-100">
+										<div style="height: 30rem; max-height: 30rem">
+											<img
+												src="<%= i.url %>"
+												class="object-fit-contain w-100 h-100"
+												alt="..."
+											/>
+										</div>
+									</div>
 								</div>
 
 								<!--  -->
