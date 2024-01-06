@@ -1,1 +1,23 @@
-<h1>dashboar del cliente</h1>
+<!DOCTYPE html>
+<html lang="es">
+	<%- include("../template/head") %>
+
+	<body id="page-top">
+		<!-- Navigation-->
+		<%- include("../components/NavBarComponent",{ RoutesLinks, navbarLinks:[ ],
+		userData:{name:"Odaly"} }) %>
+
+		<section class="page-section bg-light" id="portfolio">
+			<div class="container">
+				<h1>compras realizadas</h1>
+
+				<%- include("../components/productPurchasedClient") %>
+				<%- include("../components/productPurchasedClient") %>
+				<%- include("../components/productPurchasedClient") %>
+				<%- include("../components/productPurchasedClient") %>
+			</div>
+		</section>
+
+		<%- include("../template/scripts") %>
+	</body>
+</html>

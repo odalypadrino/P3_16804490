@@ -49,21 +49,52 @@
 				</div>
 			</div>
 		</nav>
-	
-		<section class="page-section bg-light" id="portfolio">
-			<div class="container d-flex justify-content-center">
-				<div class="alert alert-success" style="max-width: 50rem ;" role="alert">
-					<h4 class="alert-heading">Aprobado!</h4>
-					<p>
-            Su compra se ha realizado exitosamente
-					</p>
-					<hr />
-					<div class="">
 
-						<a href="<%= RoutesLinks.client.landing %>" class="btn btn-success w-50 mr-5 d-inline">Seguir comprando</a>
-						<a href="<%= RoutesLinks.client.dashboard %>" class="btn btn-success w-50 d-inline">Ver compras realizadas</a>
+		<section class="page-section bg-light" id="portfolio">
+			<div class="container d-flex flex-column">
+				<% if (false) { %>
+				<div class="alert alert-success" role="alert">
+					<h4 class="alert-heading">Aprobado!</h4>
+					<p>Su compra se ha realizado exitosamente</p>
+					<hr />
+					<div class="d-flex justify-content-end align-items-end">
+						<a
+							href="<%= RoutesLinks.client.dashboard %>"
+							class="btn btn-secondary d-inline"
+							>Ver compras realizadas</a
+						>
+						<a
+							href="<%= RoutesLinks.client.landing %>"
+							class="btn btn-success mx-2 d-inline"
+							>Seguir comprando</a
+						>
 					</div>
 				</div>
+
+				<% } else { %>
+
+				<div class="alert alert-danger" role="alert">
+					<h4 class="alert-heading">Error!</h4>
+					<p>
+						Ha ocurrido un error al momento de realizar la compra debido a
+						<strong> Rechazada </strong>
+					</p>
+					<hr />
+					<div class="d-flex justify-content-end align-items-end">
+						<a
+							href="<%= RoutesLinks.client.dashboard %>"
+							class="btn btn-secondary d-inline"
+							>Ver compras realizadas</a
+						>
+						<!-- link del producto -->
+						<a
+							href="<%= RoutesLinks.client.landing %>"
+							class="btn btn-success mx-2 d-inline"
+							>Intentar otra vez</a
+						>
+					</div>
+				</div>
+				<% } %>
 			</div>
 		</section>
 
