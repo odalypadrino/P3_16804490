@@ -1,6 +1,7 @@
 const RouterRender = {
 	admin: {
 		index: "admin/dashboard/index",
+		login: "admin/login",
 
 		// CATEGORIAS
 		categoryList: "admin/dashboard/categoryList",
@@ -17,8 +18,11 @@ const RouterRender = {
 		landing: "index",
 		search: "search",
 		product: "product",
-		login: "login",
-		dashboard:"client/dashboard",
+
+		login: "client/login",
+		register: "client/register",
+
+		dashboard: "client/dashboard",
 		credicard: "client/credicard",
 		pay_confirm: "client/pay_confirm",
 		client_login: "client/login",
@@ -30,6 +34,7 @@ const RouterRender = {
 export const RoutesLinks = {
 	admin: {
 		index: "/admin/dashboard",
+		login: "/admin/login",
 
 		// CATEGORIAS
 		categoryList: "/admin/dashboard/category",
@@ -62,10 +67,13 @@ export const RoutesLinks = {
 		search: "/search",
 		product: "/product",
 
-		login: "/login",
-		client_register: "/client/register",
+		login: "/client/login",
 		client_login: "/client/login",
-		dashboard:"/client/dashboard",
+
+		register: "/client/register",
+		client_register: "/client/register",
+
+		dashboard: "/client/dashboard",
 		credicard: "/client/credicard",
 		pay_confirm: "/client/pay_confirm",
 		signOut: "/sign_out",

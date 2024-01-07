@@ -65,11 +65,6 @@ export const productPage = async (req: Request, res: Response) => {
 		});
 	} catch (error) {}
 };
-export const loginPage = async (_req: Request, res: Response) => {
-	// const products = await getAllProducts_Service();
-
-	res.render(RouterRender.client.login, { RoutesLinks });
-};
 
 export const client_loginPage = async (_req: Request, res: Response) => {
 	// const products = await getAllProducts_Service();

@@ -111,11 +111,37 @@ export const client_pay_confirmPage = async (_req: Request, res: Response) => {
 // *********************************************************
 
 export const registerClientController = async (req: Request, res: Response) => {
-
-
-
 	const result = validationResult(req);
 
+	if (result.array().length) {
+		console.log("************ errores de registro ************");
+		console.log(result.array());
+	}
+
+	if (!result.isEmpty())
+		return res.redirect(RoutesLinks.client.register);
+
+	try {
+		const data = matchedData(req) as ClientAttributes;
+
+		const salt = await bcrypt.genSalt(10);
+		const hash = await bcrypt.hash(data.password, salt);
+
+		const client = await createClient_Service({
+			...data,
+			password: hash,
+		});
+
+		console.log("cliente registrado", client);
+
+		res.redirect(RoutesLinks.client.login);
+	} catch (error) {
+		res.redirect(RoutesLinks.client.register);
+	}
+};
+
+export const loginClientController = async (req: Request, res: Response) => {
+	const result = validationResult(req);
 
 	console.log(result.array());
 

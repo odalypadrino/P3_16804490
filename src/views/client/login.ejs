@@ -13,7 +13,11 @@
 								<div class="text-center">
 									<h1 class="h4 text-gray-900 mb-4">Iniciar sesión</h1>
 								</div>
-								<form class="user">
+								<form
+									class="user"
+									action="<%= RoutesLinks.client.login %>"
+									method="post"
+								>
 									<div class="form-group mt-3">
 										<input
 											type="email"
@@ -47,7 +51,9 @@
 									>
 								</div> -->
 								<div class="text-center">
-									<a class="small" href="<%= RoutesLinks.client.client_register %>"
+									<a
+										class="small"
+										href="<%= RoutesLinks.client.register %>"
 										>¿No tienes una cuenta? Registrate</a
 									>
 								</div>

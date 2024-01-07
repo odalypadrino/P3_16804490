@@ -51,7 +51,7 @@ app.use(passport.session());
 
 app.use("/", indexRouter);
 app.use("/client", clientRouter);
-app.use("/admin/dashboard", adminRoutes);
+app.use("/admin", adminRoutes);
 app.use("/admin/dashboard/category", categoryRouter);
 app.use("/admin/dashboard/product", productRouter);
 // app.use('/users', usersRouter);

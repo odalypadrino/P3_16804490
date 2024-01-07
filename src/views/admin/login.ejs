@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-	<%- include("template/head") %>
+	<%- include("../template/head") %>
 
 	<body>
 		<main
@@ -8,7 +8,7 @@
 		>
 			<div class="d-flex flex-column shadow-lg px-5 py-4 rounded loginStyle">
 				<h2 class="text-center mb-3">login</h2>
-				<form action="<%= RoutesLinks.client.login %>" method="post">
+				<form action="<%= RoutesLinks.admin.login %>" method="post">
 					<!-- Email input -->
 					<div class="form-outline mb-4">
 						<label class="form-label" for="form2Example1"
@@ -16,7 +16,7 @@
 						>
 						<input
 							type="email"
-							name="username"
+							name="email"
 							id="form2Example1"
 							class="form-control"
 						/>
@@ -64,14 +64,11 @@
 						</button>
 					</div>
 
-					<!-- Register buttons -->
-					<!-- <div class="text-center"> -->
-					<!-- <p>Not a member? <a href="#!">Register</a></p> -->
-					<!-- </div> -->
+				
 				</form>
 			</div>
 		</main>
 	</body>
 
-	<%- include("template/scripts") %>
+	<%- include("../template/scripts") %>
 </html>
