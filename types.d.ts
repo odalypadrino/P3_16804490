@@ -25,6 +25,17 @@ export interface CategoryAttributes {
 	status: string;
 }
 
+export interface ClientAttributes {
+	id: number;
+	name: string;
+	lastName: string;
+	email: string;
+	password: string;
+	birthday: Date;
+	phoneNumber: string;
+	status: string;
+}
+
 export interface QueryProduct {
 	text: string | null;
 	brand: string | null;

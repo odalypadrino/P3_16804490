@@ -7,7 +7,9 @@ import {
 	client_pay_confirmPage,
 	client_registerPage,
 	mainPage,
+	registerClientController,
 } from "../controllers/clientController";
+import { createClienteValidator } from "../validators/ClientValidator";
 
 // import autenticateMidleware from "../services/authService";
 
@@ -20,7 +22,9 @@ router.get("/login", client_loginPage);
 router.get("/dashboard", client_dashboardPage);
 router.post("/credicard", client_credicardPage);
 router.post("/pay_confirm", client_pay_confirmPage);
+
 router.get("/register", client_registerPage);
+router.post("/register", createClienteValidator, registerClientController);
 // router.post("/login", autenticateMidleware);
 
 export default router;

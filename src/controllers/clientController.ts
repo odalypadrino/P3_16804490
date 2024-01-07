@@ -1,11 +1,18 @@
 import { Request, Response } from "express";
+import { matchedData, validationResult } from "express-validator";
+import bcrypt from "bcrypt";
+
 import RouterRender, { RoutesLinks } from "../config/RoutesLinks";
+
 import {
 	getAllProductsByQuery_Service,
 	getAllProducts_Service,
 	getProductById_Service,
 } from "../services/productService";
+
 import { getQueryFilters_service } from "../services/querys";
+import { createClient_Service } from "../services/ClientService";
+import { ClientAttributes } from "../../types";
 
 export const mainPage = async (_req: Request, res: Response) => {
 	const products = await getAllProducts_Service();
@@ -43,29 +50,25 @@ export const searhPage = async (req: Request, res: Response) => {
 	});
 };
 
-export const loginPage = async (_req: Request, res: Response) => {
-	// const products = await getAllProducts_Service();
+export const loginPage = async (_req: Request, res: Response) =>
+	res.render(RouterRender.client.login, {
+		RoutesLinks,
+	});
 
-	res.render(RouterRender.client.login, { RoutesLinks });
-};
+export const client_loginPage = async (_req: Request, res: Response) =>
+	res.render(RouterRender.client.client_login, {
+		RoutesLinks,
+	});
 
-export const client_loginPage = async (_req: Request, res: Response) => {
-	// const products = await getAllProducts_Service();
+export const client_dashboardPage = async (_req: Request, res: Response) =>
+	res.render(RouterRender.client.dashboard, {
+		RoutesLinks,
+	});
 
-	res.render(RouterRender.client.client_login, { RoutesLinks });
-};
-
-export const client_dashboardPage = async (_req: Request, res: Response) => {
-	// const products = await getAllProducts_Service();
-
-	res.render(RouterRender.client.dashboard, { RoutesLinks });
-};
-
-export const client_registerPage = async (_req: Request, res: Response) => {
-	// const products = await getAllProducts_Service();
-
-	res.render(RouterRender.client.client_register, { RoutesLinks });
-};
+export const client_registerPage = async (_req: Request, res: Response) =>
+	res.render(RouterRender.client.client_register, {
+		RoutesLinks,
+	});
 
 export const client_credicardPage = async (req: Request, res: Response) => {
 	// const products = await getAllProducts_Service();
@@ -101,4 +104,39 @@ export const client_pay_confirmPage = async (_req: Request, res: Response) => {
 			data,
 		});
 	} catch (error) {}
+};
+
+// *********************************************************
+// 													API
+// *********************************************************
+
+export const registerClientController = async (req: Request, res: Response) => {
+
+
+
+	const result = validationResult(req);
+
+
+	console.log(result.array());
+
+	if (!result.isEmpty())
+		return res.redirect(RoutesLinks.client.client_register);
+
+	try {
+		const data = matchedData(req) as ClientAttributes;
+
+		const salt = await bcrypt.genSalt(10);
+		const hash = await bcrypt.hash(data.password, salt);
+
+		const client = await createClient_Service({
+			...data,
+			password: hash,
+		});
+
+		console.log(client);
+
+		res.redirect(RoutesLinks.client.login);
+	} catch (error) {
+		res.redirect(RoutesLinks.client.client_register);
+	}
 };

@@ -13,7 +13,7 @@
 								<div class="text-center">
 									<h1 class="h4 text-gray-900 mb-4">Crea una cuenta!</h1>
 								</div>
-								<form class="user">
+								<form class="user" action="<%= RoutesLinks.client.client_register %>" method="post">
 									<div class="form-group row">
 										<div class="col-sm-6 mb-3 mb-sm-0">
 											<input
@@ -22,6 +22,7 @@
 												id="name"
 												name="name"
 												placeholder="Nombre"
+												required
 											/>
 										</div>
 										<div class="col-sm-6">
@@ -30,7 +31,28 @@
 												class="form-control form-control-user"
 												id="lastName"
 												name="lastName"
-												placeholder="Apellido"
+												placeholder="Apellido"required
+											/>
+										</div>
+									</div>
+
+									<div class="form-group row mt-3">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<input
+												type="date"
+												class="form-control form-control-user"
+												id="birthday"
+												name="birthday"
+												placeholder="Fecha de nacimiento"required
+											/>
+										</div>
+										<div class="col-sm-6">
+											<input
+												type="text"
+												class="form-control form-control-user"
+												id="phoneNumber"
+												name="phoneNumber"
+												placeholder="Número de teléfono"required
 											/>
 										</div>
 									</div>
@@ -40,7 +62,7 @@
 											class="form-control form-control-user"
 											id="email"
 											name="email"
-											placeholder="Correo electrónico"
+											placeholder="Correo electrónico"required
 										/>
 									</div>
 									<div class="form-group row mt-3">
@@ -50,7 +72,7 @@
 												class="form-control form-control-user"
 												id="password"
 												name="password"
-												placeholder="Contraseña"
+												placeholder="Contraseña"required
 											/>
 										</div>
 										<div class="col-sm-6">
@@ -59,20 +81,17 @@
 												class="form-control form-control-user"
 												id="repeatPassword"
 												name="repeatPassword"
-												placeholder="Repetir contraseña  "
+												placeholder="Repetir contraseña"required
 											/>
 										</div>
 									</div>
 
 									<div class="mt-3">
-
-										<div class="g-recaptcha" data-sitekey="6Ld2OkgpAAAAABSezgK0y82C9620yMncoaqA6sw2">
-
-										</div>
-
-
+										<div
+											class="g-recaptcha"
+											data-sitekey="6Ld2OkgpAAAAABSezgK0y82C9620yMncoaqA6sw2"
+										></div>
 									</div>
-									
 
 									<button
 										type="submit"
