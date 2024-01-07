@@ -13,6 +13,7 @@ import {
 import { createClienteValidator } from "../validators/ClientValidator";
 
 import { autenticateClientMidleware } from "../services/authService";
+import { isClientAuthenticated } from "../helpers/isAuthenticated";
 
 // import autenticateMidleware from "../services/authService";
 
@@ -24,9 +25,12 @@ router.get("/", mainPage);
 router.get("/login", client_loginPage);
 router.post("/login", autenticateClientMidleware);
 
-router.get("/dashboard", client_dashboardPage);
-router.post("/credicard", client_credicardPage);
-router.post("/pay_confirm", client_pay_confirmPage);
+router.get("/dashboard", isClientAuthenticated, client_dashboardPage);
+
+// todo: validar datos de la tarjeta de credito
+router.post("/credicard", isClientAuthenticated, client_credicardPage);
+
+router.post("/pay_confirm", isClientAuthenticated, client_pay_confirmPage);
 
 router.get("/register", client_registerPage);
 router.post("/register", createClienteValidator, registerClientController);

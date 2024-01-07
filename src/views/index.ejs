@@ -5,10 +5,7 @@
 	<body id="page-top">
 		<!-- Navigation-->
 
-		<%- include("components/NavBarComponent",{ RoutesLinks, navbarLinks:[
-		["Admin", RoutesLinks.admin.login], ["Iniciar sesión",
-		RoutesLinks.client.client_login], ["Registrate",
-		RoutesLinks.client.client_register] ],userData:null }) %>
+		<%- include("components/NavBarComponent") %>
 
 		<!-- Masthead-->
 		<header class="masthead">

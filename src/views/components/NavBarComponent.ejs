@@ -26,13 +26,15 @@
 
 			<!-- perfil usuario -->
 			<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-				<% navbarLinks.forEach(element => { %>
+				<% NavbarLinks.forEach(element => { %>
 
 				<a class="nav-item nav-link" href="<%= element[1] %>">
 					<%= element[0] %>
 				</a>
 
-				<% }) %> <% if ( userData ) { %>
+				<% }) %> 
+
+				<% if ( userData ) { %>
 				<li class="nav-item dropdown no-arrow">
 					<a
 						class="nav-link dropdown-toggle ml-auto"

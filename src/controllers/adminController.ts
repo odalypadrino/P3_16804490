@@ -13,7 +13,6 @@ export const adminDashboardPage = async (_req: Request, res: Response) => {
 	});
 };
 
-
 export const admin_loginPage = async (_req: Request, res: Response) => {
 	// const products = await getAllProducts_Service();
 

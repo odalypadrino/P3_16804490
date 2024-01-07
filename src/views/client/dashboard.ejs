@@ -4,17 +4,17 @@
 
 	<body id="page-top">
 		<!-- Navigation-->
-		<%- include("../components/NavBarComponent",{ RoutesLinks, navbarLinks:[ ],
-		userData:{name:"Odaly"} }) %>
+
+		<%- include("../components/NavBarComponent") %>
 
 		<section class="page-section bg-light" id="portfolio">
 			<div class="container">
 				<h1>compras realizadas</h1>
 
-				<%- include("../components/productPurchasedClient") %>
-				<%- include("../components/productPurchasedClient") %>
-				<%- include("../components/productPurchasedClient") %>
-				<%- include("../components/productPurchasedClient") %>
+				<%- include("../components/productPurchasedClient") %> <%-
+				include("../components/productPurchasedClient") %> <%-
+				include("../components/productPurchasedClient") %> <%-
+				include("../components/productPurchasedClient") %>
 			</div>
 		</section>
 

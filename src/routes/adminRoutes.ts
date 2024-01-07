@@ -3,12 +3,12 @@ import {
 	adminDashboardPage,
 	admin_loginPage,
 } from "../controllers/adminController";
-import isAuthenticated from "../helpers/isAuthenticated";
 import { autenticateAdminMidleware } from "../services/authService";
+import { isAdminAuthenticated } from "../helpers/isAuthenticated";
 const router = express.Router();
 
 /* GET home page. */
-router.get("/dashboard", isAuthenticated, adminDashboardPage);
+router.get("/dashboard", isAdminAuthenticated, adminDashboardPage);
 
 router.get("/login", admin_loginPage);
 router.post("/login", autenticateAdminMidleware);

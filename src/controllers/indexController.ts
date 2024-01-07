@@ -6,23 +6,36 @@ import {
 	getProductById_Service,
 } from "../services/productService";
 import { getQueryFilters_service } from "../services/querys";
+import { clientNavBarLinks } from "../config/NavBarLinks";
 
-export const mainPage = async (_req: Request, res: Response) => {
-	const products = await getAllProducts_Service();
+export const mainPage = async (req: Request, res: Response) => {
+	try {
+		const userData = req.user;
 
-	const filters = await getQueryFilters_service();
+		const products = await getAllProducts_Service();
 
-	res.render(RouterRender.client.landing, {
-		products,
-		RoutesLinks,
-		QueryData: {
-			query: { text: "", brand: "", size: "", categoryId: "" },
-			filters,
-		},
-	});
+		const filters = await getQueryFilters_service();
+
+		return res.render(RouterRender.client.landing, {
+			products,
+			RoutesLinks,
+			NavbarLinks: userData
+				? clientNavBarLinks.landing_loggedIn
+				: clientNavBarLinks.landing,
+			userData,
+			QueryData: {
+				query: { text: "", brand: "", size: "", categoryId: "" },
+				filters,
+			},
+		});
+	} catch (error) {
+		return res.redirect(RoutesLinks.client.landing);
+	}
 };
 
 export const searhPage = async (req: Request, res: Response) => {
+	const userData = req.user;
+
 	const { text, brand, size, categoryId } = req.query;
 
 	const query = {
@@ -39,20 +52,19 @@ export const searhPage = async (req: Request, res: Response) => {
 	res.render(RouterRender.client.search, {
 		products,
 		RoutesLinks,
+		NavbarLinks: userData
+			? clientNavBarLinks.landing_loggedIn
+			: clientNavBarLinks.landing,
+		userData,
 		QueryData: { query: { text, brand, size, categoryId }, filters },
 	});
 };
 
 export const productPage = async (req: Request, res: Response) => {
 	try {
-		const { productId } = req.params;
+		const userData = req.user;
 
-		// const query = {
-		// 	text: text ? text.toString() : null,
-		// 	brand: brand ? brand.toString() : null,
-		// 	size: size ? size?.toString() : null,
-		// 	categoryId: categoryId ? categoryId?.toString() : null,
-		// };
+		const { productId } = req.params;
 
 		const product = await getProductById_Service(parseInt(productId));
 
@@ -61,6 +73,10 @@ export const productPage = async (req: Request, res: Response) => {
 		res.render(RouterRender.client.product, {
 			product: product,
 			RoutesLinks,
+			NavbarLinks: userData
+				? clientNavBarLinks.landing_loggedIn
+				: clientNavBarLinks.landing,
+			userData,
 			QueryData: { query: {}, filters },
 		});
 	} catch (error) {}
