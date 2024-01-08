@@ -3,7 +3,6 @@
 	<%- include("../template/head") %>
 
 	<body id="page-top">
-
 		<%- include("../components/NavBarComponent") %>
 
 		<section class="page-section bg-light" id="portfolio">
@@ -84,6 +83,12 @@
 								action="<%= RoutesLinks.client.pay_confirm %>"
 								method="post"
 							>
+								<input
+									type="hidden"
+									name="productId"
+									value="<%= product.id %>"
+								/>
+								<input type="hidden" name="quantity" value="<%= quantity %>" />
 								<div class="row">
 									<div class="col-sm-12 col-md-6 mb-3">
 										<div class="form-outline">
@@ -92,19 +97,21 @@
 											</label>
 											<input
 												type="text"
-												id="formNameOnCard"
+												id="full-name"
+												name="full-name"
 												class="form-control"
 											/>
 										</div>
 									</div>
 									<div class="col-sm-12 col-md-6 mb-3">
 										<div class="form-outline">
-											<label class="form-label" for="formCardNumber">
+											<label class="form-label" for="card-number">
 												Número de la tarjeta de crédito
 											</label>
 											<input
 												type="text"
-												id="formCardNumber"
+												id="card-number"
+												name="card-number"
 												class="form-control"
 											/>
 										</div>
@@ -115,13 +122,14 @@
 									<div class="col-sm-12 col-md-6 mb-3">
 										<div class="form-outline">
 											<label class="form-label" for="formExpiration"
-												>Fecha de expiración (MM/AA)</label
+												>Fecha de expiración (MM/AAAA)</label
 											>
 											<div class="row">
 												<div class="col-6">
 													<input
 														type="text"
-														id="formExpiration"
+														id="expiration-month"
+														name="expiration-month"
 														class="form-control"
 														placeholder="MM"
 													/>
@@ -129,9 +137,10 @@
 												<div class="col-6">
 													<input
 														type="text"
-														id="formExpiration"
+														id="expiration-year"
+														name="expiration-year"
 														class="form-control"
-														placeholder="AA"
+														placeholder="AAAA"
 													/>
 												</div>
 											</div>
@@ -139,8 +148,13 @@
 									</div>
 									<div class="col-sm-12 col-md-6 mb-3">
 										<div class="form-outline">
-											<label class="form-label" for="formCVV">CVV</label>
-											<input type="text" id="formCVV" class="form-control" />
+											<label class="form-label" for="cvv">CVV</label>
+											<input
+												type="text"
+												id="cvv"
+												name="cvv"
+												class="form-control"
+											/>
 										</div>
 									</div>
 								</div>
