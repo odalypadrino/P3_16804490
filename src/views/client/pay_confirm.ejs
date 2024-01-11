@@ -8,7 +8,7 @@
 
 		<section class="page-section bg-light" id="portfolio">
 			<div class="container d-flex flex-column">
-				<% if (false) { %>
+				<% if (data.success) { %>
 				<div class="alert alert-success" role="alert">
 					<h4 class="alert-heading">Aprobado!</h4>
 					<p>Su compra se ha realizado exitosamente</p>
@@ -33,7 +33,7 @@
 					<h4 class="alert-heading">Error!</h4>
 					<p>
 						Ha ocurrido un error al momento de realizar la compra debido a
-						<strong> Rechazada </strong>
+						<strong> <%= data.message %> </strong>
 					</p>
 					<hr />
 					<div class="d-flex justify-content-end align-items-end">
@@ -43,9 +43,7 @@
 							>Ver compras realizadas</a
 						>
 						<!-- link del producto -->
-						<a
-							href="<%= RoutesLinks.client.landing %>"
-							class="btn btn-success mx-2 d-inline"
+						<a href="<%= data.link %>" class="btn btn-success mx-2 d-inline"
 							>Intentar otra vez</a
 						>
 					</div>

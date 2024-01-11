@@ -19,30 +19,44 @@ export const CredicardValidator = [
 	body("full-name").notEmpty().isString().trim(),
 
 	body("card-number")
+		.trim()
 		.notEmpty()
 		.isString()
-		.trim()
 		.isCreditCard()
 		.custom((value) => creditCardNumberRegex.test(value)),
 
 	body("expiration-month")
+		.trim()
 		.notEmpty()
 		.isString()
 		.isNumeric({ no_symbols: true })
 		.customSanitizer(formatearNumero),
 
-	body("expiration-year").notEmpty().isString().isNumeric(),
-
-	body("cvv")
+	body("expiration-year")
+		.trim()
 		.notEmpty()
 		.isString()
+		.isNumeric({ no_symbols: true }),
+
+	body("cvv")
+		.trim()
+		.notEmpty()
+		.isString()
+		.isNumeric()
 		.custom((v) => cvvRegex.test(v)),
 
 	body("productId")
+		.trim()
 		.notEmpty()
 		.isString()
 		.isNumeric()
 		.custom(async (v) => await getProductById_Service(v)),
 
-	body("quantity").notEmpty().isString().isNumeric().toInt().isInt({ min: 1 }),
+	body("quantity")
+		.trim()
+		.notEmpty()
+		.isString()
+		.isNumeric()
+		.toInt()
+		.isInt({ min: 1 }),
 ];

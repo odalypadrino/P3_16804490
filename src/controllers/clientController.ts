@@ -7,8 +7,11 @@ import RouterRender, { RoutesLinks } from "../config/RoutesLinks";
 import { getProductById_Service } from "../services/productService";
 
 import { createClient_Service } from "../services/ClientService";
-import { ClientAttributes } from "../../types";
+import { ClientAttributes, CredicardConfirmPayData } from "../../types";
 import { clientNavBarLinks } from "../config/NavBarLinks";
+import { createPay } from "../Libs/credicard.api";
+import { CodeErrorPaymentApiResponse, Currency } from "../../enum";
+import { createTransactionService } from "../services/TransactionService";
 
 export const mainPage = async (_req: Request, res: Response) => {
 	return res.redirect(RoutesLinks.client.landing);
@@ -101,20 +104,52 @@ export const client_credicardPage = async (req: Request, res: Response) => {
 };
 
 export const client_pay_confirmPage = async (req: Request, res: Response) => {
-	// const products = await getAllProducts_Service();
+	console.log(req.ip);
+
+	const result = validationResult(req);
+
+	if (result.array().length)
+		console.log(
+			"************ errores en datos del pago ************",
+			result.array()
+		);
+
+	const userData = req.user as ClientAttributes;
+	const dataForm = matchedData(req) as CredicardConfirmPayData;
+	const { quantity, productId } = dataForm;
 
 	try {
-		// ToDo: peticion a la api de tarjeta de credito
-		console.log(req.ip);
+		if (!result.isEmpty()) throw new Error("Error en los datos del pago");
 
-		const userData = req.user;
-		// const { productId, quantity } = req.body;
-		const data = {};
-		// const product = await getProductById_Service(parseInt(productId));
+		if (!userData) return res.redirect(RoutesLinks.client.login);
 
-		// const total = product ? product.cost * quantity : 0;
+		// return res.redirect(`${RoutesLinks.client.product}/${dataForm.productId}`);
 
-		// ToDo: enviar datos de transaccion aprobada o rechazada
+		const product = await getProductById_Service(productId);
+		if (!product) throw new Error("Producto no existe");
+
+		const cant = quantity <= 0 ? 1 : quantity;
+		const total = product ? product.cost * cant : 1;
+
+		const tdata = await createPay({
+			...dataForm,
+			amount: total,
+			currency: Currency.USD,
+			description: `Compra de "${product?.name}"`,
+			reference: "",
+		});
+
+		console.log(tdata);
+
+		await createTransactionService({
+			...tdata,
+			clientId: userData.id,
+			productId,
+			quantity: cant,
+			ipcliente: `${req.ip}`,
+			success: true,
+			error: CodeErrorPaymentApiResponse.approved,
+		});
 
 		return res.render(RouterRender.client.pay_confirm, {
 			RoutesLinks,
@@ -122,10 +157,31 @@ export const client_pay_confirmPage = async (req: Request, res: Response) => {
 				? clientNavBarLinks.landing_loggedIn
 				: clientNavBarLinks.landing,
 			userData,
-			data,
+			data: { success: true, product },
 		});
-	} catch (error) {
-		return res.redirect(RoutesLinks.client.landing);
+	} catch (error: any) {
+		// await createTransactionService({
+
+		// 	clientId: userData.id,
+		// 	productId,
+		// 	quantity,
+		// 	ipcliente: `${req.ip}`,
+		// 	success: error,
+		// 	error: CodeErrorPaymentApiResponse.rejectd,
+		// });
+
+		return res.render(RouterRender.client.pay_confirm, {
+			RoutesLinks,
+			NavbarLinks: userData
+				? clientNavBarLinks.landing_loggedIn
+				: clientNavBarLinks.landing,
+			userData,
+			data: {
+				success: false,
+				message: error,
+				link: `${RoutesLinks.client.product}/${dataForm.productId}`,
+			},
+		});
 	}
 };
 
@@ -186,39 +242,5 @@ export const loginClientController = async (req: Request, res: Response) => {
 		res.redirect(RoutesLinks.client.login);
 	} catch (error) {
 		res.redirect(RoutesLinks.client.client_register);
-	}
-};
-
-// ToDo: confirmar pago
-
-export const pay_confirm_ClientController = async (
-	req: Request,
-	res: Response
-) => {
-	const result = validationResult(req);
-
-	if (result.array().length) {
-		console.log("************ errores en datos del pago ************");
-		console.log(result.array());
-	}
-
-	if (!result.isEmpty()) return res.redirect(RoutesLinks.client.register);
-
-	try {
-		const data = matchedData(req) as ClientAttributes;
-
-		const salt = await bcrypt.genSalt(10);
-		const hash = await bcrypt.hash(data.password, salt);
-
-		const client = await createClient_Service({
-			...data,
-			password: hash,
-		});
-
-		console.log("cliente registrado", client);
-
-		res.redirect(RoutesLinks.client.login);
-	} catch (error) {
-		res.redirect(RoutesLinks.client.register);
 	}
 };
