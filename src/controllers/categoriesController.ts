@@ -8,43 +8,68 @@ import {
 	updateCategory_Service,
 } from "../services/categoryService";
 import { CategoryAttributes } from "../../types";
+import { adminNavBarLinks } from "../config/NavBarLinks";
 
-export const getAllCategory_controller = async (
-	_req: Request,
-	res: Response
-) => {
-	try {
-		const categories = await getCategories_Service();
-
-		res.render(RouterRender.admin.categoryList, {
-			categories,
-			RoutesLinks,
-		});
-	} catch (error) {}
-};
-
-export const categoryForm_controller = async (_req: Request, res: Response) => {
-	try {
-		res.render(RouterRender.admin.categoryForm, {
-			data: null,
-			RoutesLinks,
-		});
-	} catch (error) {}
-};
-
-export const categoryFormById_controller = async (
+export const categoryListPage_controller = async (
 	req: Request,
 	res: Response
 ) => {
+	try {
+		const userData = req.user;
+
+		const categories = await getCategories_Service();
+
+		return res.render(RouterRender.admin.categoryList, {
+			categories,
+			RoutesLinks,
+			NavbarLinks: adminNavBarLinks.default,
+			userData,
+		});
+	} catch (error) {
+		console.log(error);
+		return res.redirect(RoutesLinks.admin.index);
+	}
+};
+
+export const categoryFormPage_controller = async (
+	req: Request,
+	res: Response
+) => {
+	try {
+		const userData = req.user;
+
+		return res.render(RouterRender.admin.categoryForm, {
+			data: null,
+			RoutesLinks,
+			NavbarLinks: adminNavBarLinks.default,
+			userData,
+		});
+	} catch (error) {
+		console.log(error);
+		return res.redirect(RoutesLinks.admin.index);
+	}
+};
+
+export const categoryFormPage_ById_controller = async (
+	req: Request,
+	res: Response
+) => {
+	const userData = req.user;
 	const { id } = req.params;
 
 	try {
 		const category = await getCategoryById_Service(id);
+
 		res.render(RouterRender.admin.categoryForm, {
 			data: category,
 			RoutesLinks,
+			NavbarLinks: adminNavBarLinks.default,
+			userData,
 		});
-	} catch (error) {}
+	} catch (error) {
+		console.log(error);
+		return res.redirect(RoutesLinks.admin.index);
+	}
 };
 
 export const createCategory_controller = async (

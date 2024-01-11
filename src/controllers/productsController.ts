@@ -9,34 +9,56 @@ import {
 import { getCategories_Service } from "../services/categoryService";
 import RouterRender, { RoutesLinks } from "../config/RoutesLinks";
 import { ProductAttributes } from "../../types";
+import { adminNavBarLinks } from "../config/NavBarLinks";
 
-export const getAllProduct_controller = async (
-	_req: Request,
+export const productListPage_controller = async (
+	req: Request,
 	res: Response
 ) => {
 	try {
+		const userData = req.user;
+
 		const products = await getAllProducts_Service();
 
-		res.render(RouterRender.admin.productList, { products, RoutesLinks });
-	} catch (error) {}
+		return res.render(RouterRender.admin.productList, {
+			products,
+			RoutesLinks,
+			NavbarLinks: adminNavBarLinks.default,
+			userData,
+		});
+	} catch (error) {
+		console.log(error);
+		return res.redirect(RoutesLinks.admin.index);
+	}
 };
 
-export const productForm_controller = async (_req: Request, res: Response) => {
+export const productFormPage_controller = async (
+	req: Request,
+	res: Response
+) => {
 	try {
+		const userData = req.user;
+
 		const categories = await getCategories_Service();
 
 		res.render(RouterRender.admin.productForm, {
 			data: null,
 			categories,
 			RoutesLinks,
+			NavbarLinks: adminNavBarLinks.default,
+			userData,
 		});
-	} catch (error) {}
+	} catch (error) {
+		console.log(error);
+		return res.redirect(RoutesLinks.admin.index);
+	}
 };
 
-export const productFormById_controller = async (
+export const productFormPage_ById_controller = async (
 	req: Request,
 	res: Response
 ) => {
+	const userData = req.user;
 	const { id } = req.params;
 
 	try {
@@ -47,8 +69,13 @@ export const productFormById_controller = async (
 			data: product,
 			categories,
 			RoutesLinks,
+			NavbarLinks: adminNavBarLinks.default,
+			userData,
 		});
-	} catch (error) {}
+	} catch (error) {
+		console.log(error);
+		return res.redirect(RoutesLinks.admin.index);
+	}
 };
 
 export const createProduct_controller = async (req: Request, res: Response) => {

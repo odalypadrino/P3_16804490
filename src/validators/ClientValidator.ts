@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 import ClientModel from "../models/Client.model";
 import axios from "axios";
-import { RECAPTCHA_SECRET } from "../config";
+import { RECAPTCHA_SECRET, ROOT_USER } from "../config";
 
 export const createClienteValidator = [
 	body("g-recaptcha-response")
@@ -23,21 +23,22 @@ export const createClienteValidator = [
 			}
 		}),
 
-	body("name").notEmpty().isString().trim().isLength({ min: 3 }),
+	body("name").trim().notEmpty().isString().isLength({ min: 3 }),
 
 	body("lastName").notEmpty().isString().trim().isLength({ min: 3 }),
 
 	body("email")
+		.trim()
 		.notEmpty()
 		.isString()
-		.trim()
 		.isEmail()
 		.custom(async (value) => {
 			try {
+				if (value === ROOT_USER) throw new Error("E-mail already in use");
+
 				const client = await ClientModel.findOne({ where: { email: value } });
-				if (client) {
-					throw new Error("E-mail already in use");
-				}
+
+				if (client) throw new Error("E-mail already in use");
 			} catch (error) {
 				throw new Error("Error verificar correo disponible");
 			}
@@ -66,5 +67,6 @@ export const createClienteValidator = [
 				return null;
 			}
 		}),
-	body("phoneNumber").notEmpty().isString().trim().isMobilePhone("any"),
+
+	body("phoneNumber").trim().notEmpty().isString().isMobilePhone("any"),
 ];

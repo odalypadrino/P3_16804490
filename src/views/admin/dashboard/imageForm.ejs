@@ -1,61 +1,61 @@
 <!DOCTYPE html>
 <html lang="es">
-	<%- include("../template/head") %>
+	<%- include("../../template/head") %>
 
-	<body>
-		<div class="d-flex vh-100">
-			<%- include("../components/headerAdmin", {RoutesLinks}) %>
+	<body id="page-top">
+		<!-- Navigation-->
+		<%- include("../../components/NavBarComponent") %>
 
-			<div class="overflow-y-auto flex-grow-1">
-				<main class="container-fluid">
-					<div class="d-flex justify-content-between align-items-center">
-						<h3 class="mt-3">Imagenes</h3>
+		<section class="page-section bg-light" id="portfolio">
+			<div class="container">
+				<div class="d-flex justify-content-between align-items-center">
+					<h3 class="mt-3">Imagenes</h3>
+				</div>
+
+				<div class="">
+					<!--  -->
+					<div class="d-flex flex-grap align-items-start">
+						<% otherImages.forEach(element => { %>
+						<!--  -->
+						<%- include("../../components/ImagenItemForm",
+						{element,RoutesLinks})%>
+						<!--  -->
+						<% }) %>
 					</div>
 
-					<hr class="" />
-
-					<div class="">
-						<!--  -->
-						<div class="d-flex flex-grap align-items-start">
-							<% otherImages.forEach(element => { %> <%-
-							include("../components/ImagenItemForm", {element,RoutesLinks})%>
-							<% }) %>
+					<form
+						action="<%= RoutesLinks.admin.imageCreate(product.id) %>"
+						method="post"
+						clas
+					>
+						<div class="mt-3">
+							<label class="form-label" for="name">Url de imagen</label>
+							<input
+								type="text"
+								name="url"
+								class="form-control"
+								value=""
+								autofocus
+								autocomplete="none"
+								placeholder="Url de imagen"
+								required
+							/>
 						</div>
 
-						<form
-							action="<%= RoutesLinks.dashboard.imageCreate(product.id) %>"
-							method="post"
-							clas
-						>
-							<div class="mt-3">
-								<label class="form-label" for="name">Url de imagen</label>
-								<input
-									type="text"
-									name="url"
-									class="form-control"
-									value=""
-									autofocus
-									autocomplete="none"
-									placeholder="Url de imagen"
-									required
-								/>
-							</div>
+						<div class="my-3">
+							<input class="btn btn-primary" type="submit" value="Agregar" />
 
-							<div class="my-3">
-								<input class="btn btn-primary" type="submit" value="Agregar" />
-
-								<a
-									class="btn btn-info"
-									href="<%= RoutesLinks.dashboard.productList %>"
-									>Terminar</a
-								>
-							</div>
-						</form>
-					</div>
-				</main>
+							<a
+								class="btn btn-info"
+								href="<%= RoutesLinks.admin.productList %>"
+								>Terminar</a
+							>
+						</div>
+					</form>
+				</div>
 			</div>
-		</div>
+		</section>
 
-		<%- include("../template/scripts") %>
+		<%- include("../../template/scripts") %>
 	</body>
 </html>

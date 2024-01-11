@@ -1,30 +1,28 @@
+
 <!DOCTYPE html>
 <html lang="es">
-	<%- include("../template/head") %>
+	<%- include("../../template/head") %>
 
-	<body>
-		<div class="d-flex vh-100">
-			<%- include("../components/headerAdmin", {RoutesLinks}) %>
+	<body id="page-top">
+		<!-- Navigation-->
+		<%- include("../../components/NavBarComponent") %>
 
-			<div class="overflow-y-auto flex-grow-1">
-				<main class="container-fluid">
-					<div class="d-flex justify-content-between align-items-center">
-						<h3 class="mt-3">
-							<% if (data) { %> Editar producto <% } else { %> Añadir producto
-							<% } %>
-						</h3>
-					</div>
+		<section class="page-section bg-light" id="portfolio">
+			<div class="container">
+				<div class="d-flex justify-content-between align-items-center">
+					<h3 class="mt-3">
+						<% if (data) { %> Editar producto <% } else { %> Añadir producto <%
+						} %>
+					</h3>
+				</div>
 
-					<hr class="" />
-
-					<div class="">
-						<%- include('../components/productFormComponent',{data,
-						RoutesLinks}) %>
-					</div>
-				</main>
+				<div class="">
+					<%- include('../../components/productFormComponent',{data, RoutesLinks})
+					%>
+				</div>
 			</div>
-		</div>
+		</section>
 
-		<%- include("../template/scripts") %>
+		<%- include("../../template/scripts") %>
 	</body>
 </html>

@@ -1,6 +1,6 @@
 <% if (data) { %>
 <form
-	action="<%= RoutesLinks.dashboard.productFormEdit(data.id) %>"
+	action="<%= RoutesLinks.admin.productFormEdit(data.id) %>"
 	method="post"
 >
 	<div class="mt-3">
@@ -103,14 +103,14 @@
 		/>
 	</div>
 
-	<input class="btn btn-primary mt-3" type="submit" />
+	<input class="btn btn-primary mt-3" type="submit" value="Siguiente" />
 </form>
 
-<!-- <a href="<%= RoutesLinks.dashboard.imageForm(data.id) %>">añadir imagenes</a> -->
+<!-- <a href="<%= RoutesLinks.admin.imageForm(data.id) %>">añadir imagenes</a> -->
 
 <% } else { %>
 
-<form action="<%= RoutesLinks.dashboard.productFormCreate %>" method="post">
+<form action="<%= RoutesLinks.admin.productFormCreate %>" method="post">
 	<div class="mt-3">
 		<label class="form-label" for="categoryId">Catergoría</label>
 		<select class="form-select" id="categoryId" name="categoryId">
@@ -203,7 +203,7 @@
 		/>
 	</div>
 
-	<input class="btn btn-primary mt-3" type="submit" />
+	<input class="btn btn-primary mt-3" type="submit" value="Siguiente" />
 </form>
 
 <% } %>

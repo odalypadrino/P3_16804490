@@ -9,6 +9,7 @@ import {
 } from "../services/imageService";
 import { getProductById_Service } from "../services/productService";
 import { ImagesAttributes } from "../../types";
+import { adminNavBarLinks } from "../config/NavBarLinks";
 
 // export const getAllImage_controller = async (
 // 	_req: Request,
@@ -22,10 +23,11 @@ import { ImagesAttributes } from "../../types";
 // };
 
 // para añadir
-export const imageForm_controller = async (req: Request, res: Response) => {
-	const { productId } = req.params;
-
+export const imageFormPage_controller = async (req: Request, res: Response) => {
 	try {
+		const { productId } = req.params;
+		const userData = req.user;
+
 		const product = await getProductById_Service(parseInt(productId));
 		const otherImages = await getImage_By_Product_Service(parseInt(productId));
 
@@ -33,11 +35,20 @@ export const imageForm_controller = async (req: Request, res: Response) => {
 			product,
 			otherImages,
 			RoutesLinks,
+			NavbarLinks: adminNavBarLinks.default,
+			userData,
 		});
 	} catch (error) {
 		console.log(error);
+		return res.redirect(RoutesLinks.admin.index);
 	}
 };
+
+
+// *********************************************************
+// 													API
+// *********************************************************
+
 
 export const createImage_controller = async (req: Request, res: Response) => {
 	const { productId } = req.params;

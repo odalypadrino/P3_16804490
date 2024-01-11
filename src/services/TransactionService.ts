@@ -13,3 +13,13 @@ export const createTransactionService = async (
 	}
 	console.log(data);
 };
+
+export const getAllTransactionService = async () => {
+	try {
+		return await TransactionModel.findAll();
+	} catch (error) {
+		console.log(error);
+
+		throw new Error("Error al obtener las transacciones");
+	}
+};

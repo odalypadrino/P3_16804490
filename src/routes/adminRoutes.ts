@@ -8,9 +8,9 @@ import { isAdminAuthenticated } from "../helpers/isAuthenticated";
 const router = express.Router();
 
 /* GET home page. */
-router.get("/dashboard", isAdminAuthenticated, adminDashboardPage);
-
 router.get("/login", admin_loginPage);
 router.post("/login", autenticateAdminMidleware);
+
+router.get("/dashboard", isAdminAuthenticated, adminDashboardPage);
 
 export default router;

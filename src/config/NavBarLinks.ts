@@ -11,3 +11,13 @@ export const clientNavBarLinks = {
 	dashboard: [],
 	credicard: [],
 };
+
+export const adminNavBarLinks = {
+	default: [
+		["Dashboard", RoutesLinks.admin.index],
+		["Productos", RoutesLinks.admin.productList],
+		["Categorías", RoutesLinks.admin.categoryList],
+	],
+	landing: [],
+	dashboard: [],
+};

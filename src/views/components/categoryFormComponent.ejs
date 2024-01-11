@@ -1,6 +1,6 @@
 <% if (data) { %>
 <form
-	action="<%= RoutesLinks.dashboard.categoryFormEdit(data.id) %>"
+	action="<%= RoutesLinks.admin.categoryFormEdit(data.id) %>"
 	method="post"
 >
 	<div class="mt-3">
@@ -19,11 +19,11 @@
 	<input class="btn btn-primary mt-3" type="submit" />
 </form>
 
-<!-- <a href="<%= RoutesLinks.dashboard.imageForm(data.id) %>">añadir imagenes</a> -->
+<!-- <a href="<%= RoutesLinks.admin.imageForm(data.id) %>">añadir imagenes</a> -->
 
 <% } else { %>
 
-<form action="<%= RoutesLinks.dashboard.categoryFormCreate %>" method="post">
+<form action="<%= RoutesLinks.admin.categoryFormCreate %>" method="post">
 	<div class="mt-3">
 		<label class="form-label" for="name">Nombre de la categoria</label>
 		<input

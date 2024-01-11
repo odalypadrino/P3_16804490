@@ -30,26 +30,7 @@ export const mainPage = async (_req: Request, res: Response) => {
 	// });
 };
 
-// export const searhPage = async (req: Request, res: Response) => {
-// 	const { text, brand, size, categoryId } = req.query;
 
-// 	const query = {
-// 		text: text ? text.toString() : null,
-// 		brand: brand ? brand.toString() : null,
-// 		size: size ? size?.toString() : null,
-// 		categoryId: categoryId ? categoryId?.toString() : null,
-// 	};
-
-// 	const products = await getAllProductsByQuery_Service(query);
-
-// 	const filters = await getQueryFilters_service();
-
-// 	res.render(RouterRender.client.search, {
-// 		products,
-// 		RoutesLinks,
-// 		QueryData: { query: { text, brand, size, categoryId }, filters },
-// 	});
-// };
 
 export const loginPage = async (_req: Request, res: Response) =>
 	res.render(RouterRender.client.login, {
