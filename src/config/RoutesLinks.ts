@@ -47,7 +47,7 @@ export const RoutesLinks = {
 
 		// CATEGORIAS
 		categoryList: "/admin/dashboard/category",
-		categoryForm: (id: number) =>
+		categoryForm: (id?: number) =>
 			`/admin/dashboard/category/form${id ? `/${id}` : ""}`,
 
 		categoryFormCreate: "/admin/dashboard/category/create",

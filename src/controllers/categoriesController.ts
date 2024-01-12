@@ -9,6 +9,7 @@ import {
 } from "../services/categoryService";
 import { CategoryAttributes } from "../../types";
 import { adminNavBarLinks } from "../config/NavBarLinks";
+import { matchedData, validationResult } from "express-validator";
 
 export const categoryListPage_controller = async (
 	req: Request,
@@ -76,13 +77,25 @@ export const createCategory_controller = async (
 	req: Request,
 	res: Response
 ) => {
-	const data: CategoryAttributes = req.body;
-
 	try {
+		const result = validationResult(req);
+
+		if (result.array().length) {
+			console.log("************ errores de registro ************");
+			console.log(result.array());
+		}
+
+		if (!result.isEmpty())
+			return res.redirect(RoutesLinks.admin.categoryForm());
+
+		const data = matchedData(req) as CategoryAttributes;
+
 		await createCategory_Service(data);
 
-		res.redirect(RoutesLinks.admin.categoryList);
-	} catch (error) {}
+		return res.redirect(RoutesLinks.admin.categoryList);
+	} catch (error) {
+		res.redirect(RoutesLinks.admin.categoryFormCreate);
+	}
 };
 
 export const updateCategory_controller = async (
