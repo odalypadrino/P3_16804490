@@ -6,7 +6,6 @@ const RouterRender = {
 		clientList: "admin/dashboard/ClientsList",
 		transactionList: "admin/dashboard/transactionList",
 
-
 		// CATEGORIAS
 		categoryList: "admin/dashboard/categoryList",
 		categoryForm: "admin/dashboard/categoryForm",
@@ -55,7 +54,7 @@ export const RoutesLinks = {
 
 		// PRODUCTOS
 		productList: "/admin/dashboard/product",
-		productForm: (id: number) =>
+		productForm: (id?: number) =>
 			`/admin/dashboard/product/form${id ? `/${id}` : ""}`,
 
 		productFormCreate: "/admin/dashboard/product/create",

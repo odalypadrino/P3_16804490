@@ -10,17 +10,7 @@ import {
 import { getProductById_Service } from "../services/productService";
 import { ImagesAttributes } from "../../types";
 import { adminNavBarLinks } from "../config/NavBarLinks";
-
-// export const getAllImage_controller = async (
-// 	_req: Request,
-// 	res: Response
-// ) => {
-// 	try {
-// 		const categories = await getAllImages_Service();
-
-// 		res.render("dashboard/imageList", { categories });
-// 	} catch (error) {}
-// };
+import { matchedData, validationResult } from "express-validator";
 
 // para añadir
 export const imageFormPage_controller = async (req: Request, res: Response) => {
@@ -31,7 +21,7 @@ export const imageFormPage_controller = async (req: Request, res: Response) => {
 		const product = await getProductById_Service(parseInt(productId));
 		const otherImages = await getImage_By_Product_Service(parseInt(productId));
 
-		res.render(RouterRender.admin.imageForm, {
+		return res.render(RouterRender.admin.imageForm, {
 			product,
 			otherImages,
 			RoutesLinks,
@@ -44,17 +34,25 @@ export const imageFormPage_controller = async (req: Request, res: Response) => {
 	}
 };
 
-
 // *********************************************************
 // 													API
 // *********************************************************
 
-
 export const createImage_controller = async (req: Request, res: Response) => {
 	const { productId } = req.params;
-	const data: ImagesAttributes = req.body;
 
+	const data = matchedData(req) as ImagesAttributes;
 	try {
+		const result = validationResult(req);
+
+		if (result.array().length) {
+			console.log("************ errores de registro ************");
+			console.log(result.array());
+		}
+
+		if (!result.isEmpty())
+			return res.redirect(RoutesLinks.admin.imageForm(parseInt(productId)));
+
 		await createImage_Service({ ...data, productId: parseInt(productId) });
 
 		res.redirect("back");

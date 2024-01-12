@@ -139,6 +139,7 @@ export const client_pay_confirmPage = async (req: Request, res: Response) => {
 			quantity: cant,
 			ipcliente: `${req.ip}`,
 			success: true,
+			delivered: false,
 			error: CodeErrorPaymentApiResponse.approved,
 		});
 

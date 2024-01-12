@@ -49,6 +49,7 @@ export interface TransactionAttributes {
 	date: Date;
 	ipcliente: string;
 	success: boolean;
+	delivered: boolean;
 	error: CodeErrorPaymentApiResponse;
 }
 

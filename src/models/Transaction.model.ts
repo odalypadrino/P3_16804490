@@ -18,6 +18,8 @@ class TransactionModel
 	public date!: Date;
 	public ipcliente!: string;
 	public success!: boolean;
+	public delivered!: boolean;
+
 	public error!: CodeErrorPaymentApiResponse;
 
 	public readonly createdAt!: Date;
@@ -47,6 +49,7 @@ TransactionModel.init(
 		},
 		ipcliente: { type: DataTypes.STRING(255), allowNull: false },
 		success: { type: DataTypes.BOOLEAN, defaultValue: false },
+		delivered: { type: DataTypes.BOOLEAN, defaultValue: false },
 		error: {
 			type: DataTypes.ENUM,
 			values: [

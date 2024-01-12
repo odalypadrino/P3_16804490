@@ -10,6 +10,7 @@ import { getCategories_Service } from "../services/categoryService";
 import RouterRender, { RoutesLinks } from "../config/RoutesLinks";
 import { ProductAttributes } from "../../types";
 import { adminNavBarLinks } from "../config/NavBarLinks";
+import { matchedData, validationResult } from "express-validator";
 
 export const productListPage_controller = async (
 	req: Request,
@@ -79,9 +80,17 @@ export const productFormPage_ById_controller = async (
 };
 
 export const createProduct_controller = async (req: Request, res: Response) => {
-	const data: ProductAttributes = req.body;
-
+	const data = matchedData(req) as ProductAttributes;
 	try {
+		const result = validationResult(req);
+
+		if (result.array().length) {
+			console.log("************ errores de registro ************");
+			console.log(result.array());
+		}
+
+		if (!result.isEmpty()) return res.redirect(RoutesLinks.admin.productForm());
+
 		const newProduct = await createProduct_Service(data);
 
 		if (!newProduct) return res.redirect(RoutesLinks.admin.index);
@@ -92,11 +101,19 @@ export const createProduct_controller = async (req: Request, res: Response) => {
 
 export const updateProduct_controller = async (req: Request, res: Response) => {
 	const { id } = req.params;
-	const data: ProductAttributes = req.body;
 
-	console.log(data);
-
+	const data = matchedData(req) as ProductAttributes;
 	try {
+		const result = validationResult(req);
+
+		if (result.array().length) {
+			console.log("************ errores de registro ************");
+			console.log(result.array());
+		}
+
+		if (!result.isEmpty())
+			return res.redirect(RoutesLinks.admin.productForm(parseInt(id)));
+
 		const product = await updateProduct_Service(parseInt(id), data);
 
 		if (!product) return res.redirect(RoutesLinks.admin.index);

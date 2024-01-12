@@ -7,7 +7,7 @@ export const clientNavBarLinks = {
 		["Iniciar sesión", RoutesLinks.client.login],
 		["Registrate", RoutesLinks.client.register],
 	],
-	landing_loggedIn: [],
+	landing_loggedIn: [["Compras", RoutesLinks.client.dashboard]],
 	dashboard: [],
 	credicard: [],
 };

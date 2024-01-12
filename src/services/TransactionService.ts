@@ -20,6 +20,7 @@ export const createTransactionService = async (
 export const getAllTransactionService = async () => {
 	try {
 		const transacciones = await TransactionModel.findAll({
+			order: [["date", "DESC"]],
 			include: [
 				{ model: ClientModel, as: "client" },
 				{ model: ProductModel, as: "product", include: [ImagesModel] },
@@ -38,6 +39,7 @@ export const getAllTransaction_ByClient_Service = async (clientId: number) => {
 	try {
 		const transacciones = await TransactionModel.findAll({
 			where: { clientId },
+			order: [["date", "DESC"]],
 			include: [
 				{ model: ClientModel, as: "client" },
 				{ model: ProductModel, as: "product", include: [ImagesModel] },
