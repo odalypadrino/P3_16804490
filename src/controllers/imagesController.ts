@@ -42,6 +42,7 @@ export const createImage_controller = async (req: Request, res: Response) => {
 	const { productId } = req.params;
 
 	const data = matchedData(req) as ImagesAttributes;
+
 	try {
 		const result = validationResult(req);
 
@@ -55,8 +56,12 @@ export const createImage_controller = async (req: Request, res: Response) => {
 
 		await createImage_Service({ ...data, productId: parseInt(productId) });
 
-		res.redirect("back");
-	} catch (error) {}
+		return res.redirect("back");
+	} catch (error) {
+		console.log(error);
+
+		return res.redirect(RoutesLinks.admin.imageForm(parseInt(productId)));
+	}
 };
 
 export const featuredImage_controller = async (req: Request, res: Response) => {
@@ -65,9 +70,11 @@ export const featuredImage_controller = async (req: Request, res: Response) => {
 	try {
 		await featuredImage_By_Id_service(parseInt(id));
 
-		res.redirect("back");
+		return res.redirect("back");
 	} catch (error) {
 		console.log(error);
+
+		return res.redirect("back");
 	}
 };
 
@@ -77,8 +84,9 @@ export const deleteImage_controller = async (req: Request, res: Response) => {
 	try {
 		await deleteImage_By_Id_service(parseInt(id));
 
-		res.redirect("back");
+		return res.redirect("back");
 	} catch (error) {
 		console.log(error);
+		return res.redirect("back");
 	}
 };

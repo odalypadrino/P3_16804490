@@ -12,24 +12,6 @@ export const createImage_Service = async (data: ImagesAttributes) => {
 	}
 };
 
-// export const updateImage_Service = async (id: number, data: Image) => {
-// 	try {
-// 		await ImagesModel.update(data, { where: { id } });
-// 	} catch (error) {
-// 		console.log(error);
-// 	}
-// };
-
-// export const getAllImages_Service = async () => {
-// 	try {
-// 		return await ImagesModel.findAll();
-// 	} catch (error) {
-// 		console.log(error);
-
-// 		return null;
-// 	}
-// };
-
 export const getImageById_Service = async (id: string) => {
 	try {
 		return await ImagesModel.findByPk(id);
@@ -41,7 +23,10 @@ export const getImageById_Service = async (id: string) => {
 
 export const getImage_By_Product_Service = async (productId: number) => {
 	try {
-		return await ImagesModel.findAll({ where: { productId } });
+		return await ImagesModel.findAll({
+			where: { productId },
+			order: [["featured", "DESC"]],
+		});
 	} catch (error) {
 		console.log(error);
 		return null;
@@ -51,14 +36,20 @@ export const getImage_By_Product_Service = async (productId: number) => {
 export const featuredImage_By_Id_service = async (id: number) => {
 	try {
 		const img = await ImagesModel.findByPk(id);
-
+		
 		if (!img) return;
+
+		await ImagesModel.update(
+			{ featured: false },
+			{ where: { productId: img.productId } }
+		);
 
 		img.featured = !img.featured;
 
 		await img.save();
 	} catch (error) {
 		console.log(error);
+		return;
 	}
 };
 

@@ -34,7 +34,7 @@ export const getAllProducts_Service = async () => {
 	try {
 		return await ProductModel.findAll({
 			include: [
-				{ model: ImagesModel },
+				{ model: ImagesModel, order: [["featured", "DESC"]] },
 				{ model: CategoryModel, as: "category" },
 			],
 		});
