@@ -10,11 +10,17 @@
 		<section class="page-section bg-light" id="portfolio">
 			<div class="container">
 				<h1>compras realizadas</h1>
+				<div class="d-flex flex-column">
+					<% transaction.forEach(element => { %>
 
-				<%- include("../components/productPurchasedClient") %> <%-
-				include("../components/productPurchasedClient") %> <%-
-				include("../components/productPurchasedClient") %> <%-
-				include("../components/productPurchasedClient") %>
+					<!--  -->
+					<%- include("../components/transactionItemClient", {element,
+					RoutesLinks})%>
+
+					<!--  -->
+
+					<% }) %>
+				</div>
 			</div>
 		</section>
 

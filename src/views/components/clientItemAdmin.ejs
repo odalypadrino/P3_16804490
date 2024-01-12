@@ -3,11 +3,11 @@
 	href="#"
 >
 	<div class="row">
-		<div class="col-3">
+		<div class="col-sm-12 col-md-3">
 			<div class="rounded shadow-sm product_image_admin">
 				<% if (element.perfilImage) { %>
 				<img
-					class="w-100 h-100 object-fit-cover"
+					class="w-100 h-100 object-fit-contain"
 					src="<%= element.perfilImage %>"
 					alt=""
 				/>
@@ -17,7 +17,7 @@
 				<% } %>
 			</div>
 		</div>
-		<div class="col-9">
+		<div class="col-sm-12 col-md-9">
 			<div class="d-flex flex-column justify-content-center h-100">
 				<div><b>Nombre:</b> <%= element.name %> <%= element.lastName %></div>
 				<div class=""><b>Correo:</b> <%= element.email %></div>

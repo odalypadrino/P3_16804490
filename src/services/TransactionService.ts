@@ -34,6 +34,24 @@ export const getAllTransactionService = async () => {
 	}
 };
 
+export const getAllTransaction_ByClient_Service = async (clientId: number) => {
+	try {
+		const transacciones = await TransactionModel.findAll({
+			where: { clientId },
+			include: [
+				{ model: ClientModel, as: "client" },
+				{ model: ProductModel, as: "product", include: [ImagesModel] },
+			],
+		});
+
+		return transacciones;
+	} catch (error) {
+		console.log(error);
+
+		throw new Error("Error al obtener las transacciones");
+	}
+};
+
 export const getTransactionsCount_service = async () => {
 	try {
 		return await TransactionModel.count();

@@ -11,7 +11,11 @@ import { ClientAttributes, CredicardConfirmPayData } from "../../types";
 import { clientNavBarLinks } from "../config/NavBarLinks";
 import { createPay } from "../Libs/credicard.api";
 import { CodeErrorPaymentApiResponse, Currency } from "../../enum";
-import { createTransactionService } from "../services/TransactionService";
+import {
+	createTransactionService,
+	getAllTransaction_ByClient_Service,
+} from "../services/TransactionService";
+import { ROOT_USER } from "../config";
 
 export const mainPage = async (_req: Request, res: Response) => {
 	return res.redirect(RoutesLinks.client.landing);
@@ -41,13 +45,20 @@ export const client_loginPage = async (_req: Request, res: Response) =>
 	});
 
 export const client_dashboardPage = async (req: Request, res: Response) => {
-	const userData = req.user;
+	try {
+		const userData = req.user as ClientAttributes;
 
-	res.render(RouterRender.client.dashboard, {
-		RoutesLinks,
-		NavbarLinks: clientNavBarLinks.dashboard,
-		userData,
-	});
+		const transaction = await getAllTransaction_ByClient_Service(userData.id);
+
+		return res.render(RouterRender.client.dashboard, {
+			RoutesLinks,
+			transaction,
+			NavbarLinks: clientNavBarLinks.dashboard,
+			userData,
+		});
+	} catch (error) {
+		return res.redirect(RoutesLinks.client.landing);
+	}
 };
 
 export const client_registerPage = async (_req: Request, res: Response) =>
@@ -56,10 +67,12 @@ export const client_registerPage = async (_req: Request, res: Response) =>
 	});
 
 export const client_credicardPage = async (req: Request, res: Response) => {
-	const userData = req.user;
+	const userData = req.user as ClientAttributes;
+	const { productId, quantity } = req.body;
 
 	try {
-		const { productId, quantity } = req.body;
+		if (userData.email === ROOT_USER)
+			return res.redirect(`${RoutesLinks.client.product}/${productId}`);
 
 		const product = await getProductById_Service(parseInt(productId));
 
@@ -83,8 +96,6 @@ export const client_credicardPage = async (req: Request, res: Response) => {
 };
 
 export const client_pay_confirmPage = async (req: Request, res: Response) => {
-	console.log(req.ip);
-
 	const result = validationResult(req);
 
 	if (result.array().length)
@@ -102,7 +113,8 @@ export const client_pay_confirmPage = async (req: Request, res: Response) => {
 
 		if (!userData) return res.redirect(RoutesLinks.client.login);
 
-		// return res.redirect(`${RoutesLinks.client.product}/${dataForm.productId}`);
+		if (userData.email === ROOT_USER)
+			return res.redirect(`${RoutesLinks.client.product}/${productId}`);
 
 		const product = await getProductById_Service(productId);
 		if (!product) throw new Error("Producto no existe");

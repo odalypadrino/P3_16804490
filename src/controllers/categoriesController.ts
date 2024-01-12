@@ -94,7 +94,7 @@ export const createCategory_controller = async (
 
 		return res.redirect(RoutesLinks.admin.categoryList);
 	} catch (error) {
-		res.redirect(RoutesLinks.admin.categoryFormCreate);
+		res.redirect(RoutesLinks.admin.categoryForm());
 	}
 };
 
@@ -103,13 +103,24 @@ export const updateCategory_controller = async (
 	res: Response
 ) => {
 	const { id } = req.params;
-	const data: CategoryAttributes = req.body;
-
+	const data = matchedData(req) as CategoryAttributes;
 	try {
+		const result = validationResult(req);
+
+		if (result.array().length) {
+			console.log("************ errores de registro ************");
+			console.log(result.array());
+		}
+
+		if (!result.isEmpty())
+			return res.redirect(RoutesLinks.admin.categoryForm(parseInt(id)));
+
 		await updateCategory_Service(parseInt(id), data);
 
-		res.redirect(RoutesLinks.admin.categoryList);
+		return res.redirect(RoutesLinks.admin.categoryList);
 	} catch (error) {
 		console.log(error);
+
+		return res.redirect(RoutesLinks.admin.categoryForm(parseInt(id)));
 	}
 };

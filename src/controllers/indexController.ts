@@ -6,11 +6,13 @@ import {
 	getProductById_Service,
 } from "../services/productService";
 import { getQueryFilters_service } from "../services/querys";
-import { clientNavBarLinks } from "../config/NavBarLinks";
+import { adminNavBarLinks, clientNavBarLinks } from "../config/NavBarLinks";
+import { ClientAttributes } from "../../types";
+import { ROOT_USER } from "../config";
 
 export const mainPage = async (req: Request, res: Response) => {
 	try {
-		const userData = req.user;
+		const userData = req.user as ClientAttributes;
 
 		const products = await getAllProducts_Service();
 
@@ -20,7 +22,9 @@ export const mainPage = async (req: Request, res: Response) => {
 			products,
 			RoutesLinks,
 			NavbarLinks: userData
-				? clientNavBarLinks.landing_loggedIn
+				? userData.email === ROOT_USER
+					? adminNavBarLinks.default
+					: clientNavBarLinks.landing_loggedIn
 				: clientNavBarLinks.landing,
 			userData,
 			QueryData: {
@@ -29,40 +33,50 @@ export const mainPage = async (req: Request, res: Response) => {
 			},
 		});
 	} catch (error) {
+		console.log(error);
+
 		return res.redirect(RoutesLinks.client.landing);
 	}
 };
 
 export const searhPage = async (req: Request, res: Response) => {
-	const userData = req.user;
+	try {
+		const userData = req.user as ClientAttributes;
 
-	const { text, brand, size, categoryId } = req.query;
+		const { text, brand, size, categoryId } = req.query;
 
-	const query = {
-		text: text ? text.toString() : null,
-		brand: brand ? brand.toString() : null,
-		size: size ? size?.toString() : null,
-		categoryId: categoryId ? categoryId?.toString() : null,
-	};
+		const query = {
+			text: text ? text.toString() : null,
+			brand: brand ? brand.toString() : null,
+			size: size ? size?.toString() : null,
+			categoryId: categoryId ? categoryId?.toString() : null,
+		};
 
-	const products = await getAllProductsByQuery_Service(query);
+		const products = await getAllProductsByQuery_Service(query);
 
-	const filters = await getQueryFilters_service();
+		const filters = await getQueryFilters_service();
 
-	res.render(RouterRender.client.search, {
-		products,
-		RoutesLinks,
-		NavbarLinks: userData
-			? clientNavBarLinks.landing_loggedIn
-			: clientNavBarLinks.landing,
-		userData,
-		QueryData: { query: { text, brand, size, categoryId }, filters },
-	});
+		res.render(RouterRender.client.search, {
+			products,
+			RoutesLinks,
+			NavbarLinks: userData
+				? userData.email === ROOT_USER
+					? adminNavBarLinks.default
+					: clientNavBarLinks.landing_loggedIn
+				: clientNavBarLinks.landing,
+			userData,
+			QueryData: { query: { text, brand, size, categoryId }, filters },
+		});
+	} catch (error) {
+		console.log(error);
+
+		return res.redirect(RoutesLinks.client.landing);
+	}
 };
 
 export const productPage = async (req: Request, res: Response) => {
 	try {
-		const userData = req.user;
+		const userData = req.user as ClientAttributes;
 
 		const { productId } = req.params;
 
@@ -74,12 +88,18 @@ export const productPage = async (req: Request, res: Response) => {
 			product: product,
 			RoutesLinks,
 			NavbarLinks: userData
-				? clientNavBarLinks.landing_loggedIn
+				? userData.email === ROOT_USER
+					? adminNavBarLinks.default
+					: clientNavBarLinks.landing_loggedIn
 				: clientNavBarLinks.landing,
 			userData,
 			QueryData: { query: {}, filters },
 		});
-	} catch (error) {}
+	} catch (error) {
+		console.log(error);
+
+		return res.redirect(RoutesLinks.client.landing);
+	}
 };
 
 export const client_loginPage = async (_req: Request, res: Response) => {
