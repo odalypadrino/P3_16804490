@@ -3,6 +3,10 @@ const RouterRender = {
 		index: "admin/dashboard/index",
 		login: "admin/login",
 
+		clientList: "admin/dashboard/ClientsList",
+		transactionList: "admin/dashboard/transactionList",
+
+
 		// CATEGORIAS
 		categoryList: "admin/dashboard/categoryList",
 		categoryForm: "admin/dashboard/categoryForm",
@@ -35,6 +39,11 @@ export const RoutesLinks = {
 	admin: {
 		index: "/admin/dashboard",
 		login: "/admin/login",
+
+		// CLIENTES
+
+		clientList: "/admin/dashboard/clients",
+		transactionList: "/admin/dashboard/transactions",
 
 		// CATEGORIAS
 		categoryList: "/admin/dashboard/category",

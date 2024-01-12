@@ -35,12 +35,13 @@ export interface ClientAttributes {
 	password: string;
 	birthday: Date;
 	phoneNumber: string;
+	perfilImage: string;
 	status: string;
 }
 
 export interface TransactionAttributes {
 	id: number;
-	transaction_id:string
+	transaction_id: string;
 	clientId: number;
 	productId: number;
 	quantity: number;

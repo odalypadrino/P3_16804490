@@ -1,7 +1,7 @@
 import { body } from "express-validator";
-import ClientModel from "../models/Client.model";
 import axios from "axios";
 import { RECAPTCHA_SECRET, ROOT_USER } from "../config";
+import { getClient_By_Email_Service } from "../services/ClientService";
 
 export const createClienteValidator = [
 	body("g-recaptcha-response")
@@ -33,15 +33,19 @@ export const createClienteValidator = [
 		.isString()
 		.isEmail()
 		.custom(async (value) => {
-			try {
-				if (value === ROOT_USER) throw new Error("E-mail already in use");
+			if (value === ROOT_USER) throw new Error("es el correo del root");
 
-				const client = await ClientModel.findOne({ where: { email: value } });
+			try {
+				const client = await getClient_By_Email_Service(value);
+
+				console.log(client?.name);
 
 				if (client) throw new Error("E-mail already in use");
 			} catch (error) {
-				throw new Error("Error verificar correo disponible");
+				throw new Error("E-mail already in use");
 			}
+
+			return true;
 		}),
 
 	body("password").notEmpty().isString(),
@@ -50,8 +54,6 @@ export const createClienteValidator = [
 		.notEmpty()
 		.isString()
 		.custom((value, { req }) => {
-			console.log(value, req.body.password);
-
 			if (value != req.body.password) throw new Error("password not equal");
 
 			return true;
@@ -69,4 +71,6 @@ export const createClienteValidator = [
 		}),
 
 	body("phoneNumber").trim().notEmpty().isString().isMobilePhone("any"),
+
+	body("perfilImage").optional().isString().trim().isURL(),
 ];

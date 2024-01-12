@@ -32,6 +32,31 @@
 						<h6><%= productCount %></h6>
 					</div>
 				</a>
+				<a
+					class="text-decoration-none"
+					href="<%= RoutesLinks.admin.clientList %>"
+				>
+					<div
+						class="d-flex flex-column align-items-center justify-content-evenly text-black p-5 rounded shadow-sm m-2 linkToModule"
+					>
+						<h5 class="mb-3">Clientes registrados</h5>
+
+						<h6><%= clientsCount %></h6>
+					</div>
+				</a>
+
+				<a
+					class="text-decoration-none"
+					href="<%= RoutesLinks.admin.transactionList %>"
+				>
+					<div
+						class="d-flex flex-column align-items-center justify-content-evenly text-black p-5 rounded shadow-sm m-2 linkToModule"
+					>
+						<h5 class="mb-3">Transacciones</h5>
+
+						<h6><%= transactionCount %></h6>
+					</div>
+				</a>
 			</div>
 		</section>
 

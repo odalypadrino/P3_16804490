@@ -17,6 +17,8 @@ export const adminNavBarLinks = {
 		["Dashboard", RoutesLinks.admin.index],
 		["Productos", RoutesLinks.admin.productList],
 		["Categorías", RoutesLinks.admin.categoryList],
+		["Clientes", RoutesLinks.admin.clientList],
+		["Transacciones", RoutesLinks.admin.transactionList],
 	],
 	landing: [],
 	dashboard: [],

@@ -11,6 +11,7 @@ class ClientModel extends Model<ClientAttributes> implements ClientAttributes {
 	public birthday!: Date;
 	public phoneNumber!: string;
 	public status!: string;
+	public perfilImage!: string;
 
 	public readonly createdAt!: Date;
 	public readonly updatedAt!: Date;
@@ -48,6 +49,12 @@ ClientModel.init(
 		},
 		phoneNumber: {
 			type: DataTypes.STRING(255),
+		},
+
+		perfilImage: {
+			type: DataTypes.STRING(255),
+			allowNull: true,
+			defaultValue: null,
 		},
 
 		status: {

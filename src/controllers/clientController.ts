@@ -30,8 +30,6 @@ export const mainPage = async (_req: Request, res: Response) => {
 	// });
 };
 
-
-
 export const loginPage = async (_req: Request, res: Response) =>
 	res.render(RouterRender.client.login, {
 		RoutesLinks,
@@ -186,12 +184,12 @@ export const registerClientController = async (req: Request, res: Response) => {
 		const salt = await bcrypt.genSalt(10);
 		const hash = await bcrypt.hash(data.password, salt);
 
-		const client = await createClient_Service({
+		await createClient_Service({
 			...data,
 			password: hash,
 		});
 
-		console.log("cliente registrado", client);
+		// console.log("cliente registrado", client);
 
 		res.redirect(RoutesLinks.client.login);
 	} catch (error) {
