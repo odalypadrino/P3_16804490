@@ -66,7 +66,7 @@ export const client_registerPage = async (req: Request, res: Response) => {
 		let errors = req.query.errors as string;
 
 		try {
-			errors = JSON.parse(errors);
+			errors = errors ? JSON.parse(errors) : [];
 		} catch (error) {
 			error = [];
 		}
