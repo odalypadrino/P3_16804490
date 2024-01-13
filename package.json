@@ -8,7 +8,7 @@
 		"_lint": "ts-standard",
 		"build": "tsc && npm run copy-folder",
 		"tsc": "tsc",
-		"copy-folder": "cp -r src/views build/"
+		"copy-folder": "cp -r src/views build/src/"
 	},
 	"dependencies": {
 		"@types/passport-local": "^1.0.37",
