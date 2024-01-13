@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
-		"start": "node build/index.js",
+		"start": "node build/src/index.js",
 		"dev": "ts-node-dev src/index.ts",
 		"_lint": "ts-standard",
 		"build": "tsc && npm run copy-folder",
