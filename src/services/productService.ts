@@ -1,4 +1,4 @@
-import { ProductAttributes, QueryProduct } from "../../types";
+import { ImagesAttributes, ProductAttributes, QueryProduct } from "../../types";
 import ProductModel from "../models/Product.model";
 import ImagesModel from "../models/Images.model";
 import CategoryModel from "../models/Category.model";
@@ -30,13 +30,26 @@ export const updateProduct_Service = async (
 	}
 };
 
+// interface a extends ProductModel {
+// 	images: ImagesAttributes[];
+// }
+
 export const getAllProducts_Service = async () => {
 	try {
-		return await ProductModel.findAll({
-			include: [
-				{ model: ImagesModel, order: [["featured", "DESC"]] },
-				{ model: CategoryModel, as: "category" },
-			],
+		return (
+			await ProductModel.findAll({
+				include: [
+					{ model: ImagesModel, order: [["featured", "DESC"]] },
+					{ model: CategoryModel, as: "category" },
+				],
+			})
+		).map((product: any) => {
+			const imgs = product.images;
+
+			product.images = imgs.sort((a: ImagesAttributes) =>
+				a.featured === true ? 1 : -1
+			);
+			return product;
 		});
 	} catch (error) {
 		console.log(error);
@@ -89,7 +102,7 @@ export const getAllProductsByQuery_Service = async ({
 	if (categoryId) andInWhere.push({ categoryId });
 
 	try {
-		return await ProductModel.findAll({
+		return (await ProductModel.findAll({
 			where: {
 				[Op.and]: andInWhere,
 			},
@@ -97,6 +110,13 @@ export const getAllProductsByQuery_Service = async ({
 				{ model: ImagesModel, order: [["featured", "DESC"]] },
 				{ model: CategoryModel, as: "category" },
 			],
+		})).map((product: any) => {
+			const imgs = product.images;
+
+			product.images = imgs.sort((a: ImagesAttributes) =>
+				a.featured === true ? 1 : -1
+			);
+			return product;
 		});
 	} catch (error) {
 		console.log(error);
