@@ -17,7 +17,10 @@
 								<div>
 									<% errors.forEach(element => { %>
 
-									<div><%= element %></div>
+									<div class="alert alert-danger" role="alert">
+										<%= element %>
+									</div>
+
 									<% }) %>
 								</div>
 								<form
