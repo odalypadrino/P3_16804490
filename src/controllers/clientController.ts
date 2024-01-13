@@ -61,10 +61,22 @@ export const client_dashboardPage = async (req: Request, res: Response) => {
 	}
 };
 
-export const client_registerPage = async (_req: Request, res: Response) =>
-	res.render(RouterRender.client.client_register, {
-		RoutesLinks,
-	});
+export const client_registerPage = async (req: Request, res: Response) => {
+	try {
+		let errors = req.query.errors as string;
+
+		try {
+			errors = JSON.parse(errors);
+		} catch (error) {
+			error = [];
+		}
+
+		return res.render(RouterRender.client.client_register, {
+			RoutesLinks,
+			errors,
+		});
+	} catch (error) {}
+};
 
 export const client_credicardPage = async (req: Request, res: Response) => {
 	const userData = req.user as ClientAttributes;
@@ -189,7 +201,12 @@ export const registerClientController = async (req: Request, res: Response) => {
 		console.log(result.array());
 	}
 
-	if (!result.isEmpty()) return res.redirect(RoutesLinks.client.register);
+	if (!result.isEmpty())
+		return res.redirect(
+			`${RoutesLinks.client.register}/?errors=${JSON.stringify(
+				result.array().map((v) => v.msg)
+			)}`
+		);
 
 	try {
 		const data = matchedData(req) as ClientAttributes;
