@@ -3,10 +3,16 @@
 	<div class="card-body">
 		<div class="d-flex justify-content-evenly">
 			<a
-				class="btn btn-info"
+				class="btn btn-secondary"
 				href="<%= RoutesLinks.admin.imageFeatured(product.id,element.id)  %>"
-				>Destacado</a
 			>
+				<% if (element.featured) { %>
+					<img width="48" height="48" src="https://img.icons8.com/fluency/48/star--v1.png" alt="star--v1"/>
+
+				<% } else { %>
+					<img width="48" height="48" src="https://img.icons8.com/color/48/star--v1.png" alt="star--v1"/>
+				<% } %>
+			</a>
 
 			<a
 				class="btn btn-danger"

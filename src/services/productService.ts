@@ -58,7 +58,7 @@ export const getProductById_Service = async (id: number) => {
 	try {
 		return await ProductModel.findByPk(id, {
 			include: [
-				{ model: ImagesModel },
+				{ model: ImagesModel, order: [["featured", "DESC"]] },
 				{ model: CategoryModel, as: "category" },
 			],
 		});
@@ -94,7 +94,7 @@ export const getAllProductsByQuery_Service = async ({
 				[Op.and]: andInWhere,
 			},
 			include: [
-				{ model: ImagesModel },
+				{ model: ImagesModel, order: [["featured", "DESC"]] },
 				{ model: CategoryModel, as: "category" },
 			],
 		});
