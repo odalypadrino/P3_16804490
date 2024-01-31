@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { ClientAttributes } from "../../types";
 import ClientModel from "../models/Client.model";
 
@@ -23,15 +24,13 @@ export const getAllClients_Service = async () => {
 };
 
 export const getClientsCount_service = async () => {
-
 	try {
-		return await ClientModel.count()
+		return await ClientModel.count();
 	} catch (error) {
 		console.log(error);
-				return 0
+		return 0;
 	}
-	
-}
+};
 
 export const getClient_By_Id_Service = async (id: string | number) => {
 	try {
@@ -47,6 +46,26 @@ export const getClient_By_Id_Service = async (id: string | number) => {
 export const getClient_By_Email_Service = async (email: string) => {
 	try {
 		const client = await ClientModel.findOne({ where: { email } });
+
+		return client;
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+};
+
+export const setPasswordClient_Servicer = async (
+	id: string | number,
+	password: string
+) => {
+	try {
+		const salt = await bcrypt.genSalt(10);
+		const hash = await bcrypt.hash(password, salt);
+
+		const client = await ClientModel.update(
+			{ password: hash },
+			{ where: { id } }
+		);
 
 		return client;
 	} catch (error) {

@@ -6,7 +6,12 @@ import RouterRender, { RoutesLinks } from "../config/RoutesLinks";
 
 import { getProductById_Service } from "../services/productService";
 
-import { createClient_Service } from "../services/ClientService";
+import {
+	createClient_Service,
+	getClient_By_Email_Service,
+	getClient_By_Id_Service,
+	setPasswordClient_Servicer,
+} from "../services/ClientService";
 import { ClientAttributes, CredicardConfirmPayData } from "../../types";
 import { clientNavBarLinks } from "../config/NavBarLinks";
 import { createPay } from "../Libs/credicard.api";
@@ -16,6 +21,12 @@ import {
 	getAllTransaction_ByClient_Service,
 } from "../services/TransactionService";
 import { ROOT_USER } from "../config";
+import {
+	sendBuyProductEmail,
+	sendRecoverPassword,
+	sendRegisterEmail,
+} from "../services/emailService";
+import { validarYExtraerDatos } from "../services/tokenService";
 
 export const mainPage = async (_req: Request, res: Response) => {
 	return res.redirect(RoutesLinks.client.landing);
@@ -144,7 +155,7 @@ export const client_pay_confirmPage = async (req: Request, res: Response) => {
 
 		console.log(tdata);
 
-		await createTransactionService({
+		const transaction = await createTransactionService({
 			...tdata,
 			clientId: userData.id,
 			productId,
@@ -155,6 +166,10 @@ export const client_pay_confirmPage = async (req: Request, res: Response) => {
 			error: CodeErrorPaymentApiResponse.approved,
 		});
 
+		if (!transaction) throw new Error("Error al crear transaccion");
+
+		await sendBuyProductEmail(userData, transaction, product);
+
 		return res.render(RouterRender.client.pay_confirm, {
 			RoutesLinks,
 			NavbarLinks: userData
@@ -164,16 +179,6 @@ export const client_pay_confirmPage = async (req: Request, res: Response) => {
 			data: { success: true, product },
 		});
 	} catch (error: any) {
-		// await createTransactionService({
-
-		// 	clientId: userData.id,
-		// 	productId,
-		// 	quantity,
-		// 	ipcliente: `${req.ip}`,
-		// 	success: error,
-		// 	error: CodeErrorPaymentApiResponse.rejectd,
-		// });
-
 		return res.render(RouterRender.client.pay_confirm, {
 			RoutesLinks,
 			NavbarLinks: userData
@@ -189,6 +194,113 @@ export const client_pay_confirmPage = async (req: Request, res: Response) => {
 	}
 };
 
+// *************************** recuperar contrasena ***************************
+
+export const client_recoverPasswordPage = async (
+	_req: Request,
+	res: Response
+) =>
+	res.render(RouterRender.client.recover_password, {
+		RoutesLinks,
+	});
+
+// recibir correo y enviar link de recuperacion
+export const client_recoverPasswordSendEmail = async (
+	req: Request,
+	res: Response
+) => {
+	const { email } = req.body;
+	const result = validationResult(req);
+
+	if (result.array().length) {
+		console.log("************ errores de registro ************");
+		console.log(result.array());
+	}
+	// revisa tu correo electronico
+	if (!result.isEmpty())
+		return res.render(RouterRender.client.recover_password_Link_Sended, {
+			email,
+		});
+
+	try {
+		const user = await getClient_By_Email_Service(email);
+
+		if (user) await sendRecoverPassword(user);
+
+		return res.render(RouterRender.client.recover_password_Link_Sended, {
+			email,
+		});
+	} catch (error) {
+		res.redirect(RoutesLinks.client.register);
+	}
+};
+
+// pagina para colocar la contrasena
+export const client_recoverPasswordSetPasswordPage = async (
+	req: Request,
+	res: Response
+) => {
+	const { token } = req.params;
+
+	try {
+		const { userId } = validarYExtraerDatos(token);
+
+		const user = await getClient_By_Id_Service(userId);
+
+		if (!user) return res.redirect(RoutesLinks.client.register);
+
+		const { email } = user;
+
+		return res.render(RouterRender.client.recover_password, {
+			RoutesLinks,
+			email,
+			token,
+		});
+	} catch (error) {
+		return res.redirect(RoutesLinks.client.register);
+	}
+};
+
+// recibir nueva contrasena
+export const client_recoverPasswordSetPassword = async (
+	req: Request,
+	res: Response
+) => {
+	const { token } = req.params;
+	const { password } = matchedData(req) as {
+		password: string;
+		repeatPassword: string;
+	};
+
+	const result = validationResult(req);
+
+	if (result.array().length) {
+		console.log("************ errores de registro ************");
+		console.log(result.array());
+	}
+
+	if (!result.isEmpty())
+		return res.redirect(`${RoutesLinks.client.recover_password}/${token}`);
+
+	try {
+		const { userId } = validarYExtraerDatos(token);
+
+		const user = await getClient_By_Id_Service(userId);
+
+		if (!user) return res.redirect(RoutesLinks.client.register);
+
+		const { id } = user;
+		// todo: change password
+
+		const result = await setPasswordClient_Servicer(id, password);
+		console.log(result);
+
+		return res.redirect(RoutesLinks.client.login);
+	} catch (error) {
+		if (!result.isEmpty())
+			return res.redirect(`${RoutesLinks.client.recover_password}/${token}`);
+	}
+};
 // *********************************************************
 // 													API
 // *********************************************************
@@ -219,9 +331,9 @@ export const registerClientController = async (req: Request, res: Response) => {
 			password: hash,
 		});
 
-		// console.log("cliente registrado", client);
+		await sendRegisterEmail(data);
 
-		res.redirect(RoutesLinks.client.login);
+		return res.redirect(RoutesLinks.client.login);
 	} catch (error) {
 		res.redirect(RoutesLinks.client.register);
 	}

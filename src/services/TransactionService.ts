@@ -10,11 +10,11 @@ export const createTransactionService = async (
 	try {
 		const d = data as TransactionAttributes;
 
-		await TransactionModel.create(d);
+		return await TransactionModel.create(d);
 	} catch (error) {
 		console.log(error);
+		return;
 	}
-	console.log(data);
 };
 
 export const getAllTransactionService = async () => {

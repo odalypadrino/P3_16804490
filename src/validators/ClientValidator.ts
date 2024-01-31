@@ -101,3 +101,29 @@ export const createClienteValidator = [
 		.isURL()
 		.withMessage("URL de foto de perfil no es valida "),
 ];
+
+export const RecoverPasswordClientValidator = [
+	body("email")
+		.trim()
+		.notEmpty()
+		.isString()
+		.isEmail()
+		.withMessage("Correo no valido"),
+];
+
+export const RecoverPassword_SetPassword_ClientValidator = [
+	body("password")
+		.notEmpty()
+		.isString()
+		.withMessage("La contraseña debe ser mínimo 3 caracteres"),
+
+	body("repeatPassword")
+		.notEmpty()
+		.isString()
+		.custom((value, { req }) => {
+			if (value != req.body.password)
+				throw new Error("Las contraseñas no son iguales");
+
+			return true;
+		}),
+];

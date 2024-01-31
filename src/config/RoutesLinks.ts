@@ -30,6 +30,9 @@ const RouterRender = {
 		pay_confirm: "client/pay_confirm",
 		client_login: "client/login",
 		client_register: "client/register",
+		recover_password: "client/recover_password",
+		recover_password_Link_Sended: "client/recover_password_Link_Sended",
+		recover_password_SetPassword: "client/recover_password",
 	},
 };
 
@@ -84,6 +87,10 @@ export const RoutesLinks = {
 		dashboard: "/client/dashboard",
 		credicard: "/client/credicard",
 		pay_confirm: "/client/pay_confirm",
+
+		recover_password: "/client/recover_password",
+		// recover_password_SetPassword: "/client/recover_password",
+
 		signOut: "/sign_out",
 	},
 };

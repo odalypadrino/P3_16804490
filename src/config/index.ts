@@ -15,7 +15,12 @@ export const RECAPTCHA_SECRET = process.env.RECAPTCHA_SECRET;
 
 export const PAYMENT_API_KEY = process.env.PAYMENT_API_KEY;
 
-export const PAYMENT_URL = process.env.PAYMENT_URL as string
+export const PAYMENT_URL = process.env.PAYMENT_URL as string;
+
+export const SENDER_EMAIL = process.env.SENDER_EMAIL;
+export const SENDER_EMAIL_PASSWORD = process.env.SENDER_EMAIL_PASSWORD;
+
+export const URL_SERVER = process.env.URL_SERVER;
 
 // export const DATABASE_HOST = process.env.DATABASE_HOST || "127.0.0.1";
 // export const DATABASE_NAME = process.env.DATABASE_NAME || "";

@@ -5,12 +5,20 @@ import {
 	client_dashboardPage,
 	client_loginPage,
 	client_pay_confirmPage,
+	client_recoverPasswordPage,
+	client_recoverPasswordSendEmail,
+	client_recoverPasswordSetPassword,
+	client_recoverPasswordSetPasswordPage,
 	client_registerPage,
 	mainPage,
 	registerClientController,
 } from "../controllers/clientController";
 
-import { createClienteValidator } from "../validators/ClientValidator";
+import {
+	RecoverPasswordClientValidator,
+	RecoverPassword_SetPassword_ClientValidator,
+	createClienteValidator,
+} from "../validators/ClientValidator";
 
 import { autenticateClientMidleware } from "../services/authService";
 import { isClientAuthenticated } from "../helpers/isAuthenticated";
@@ -41,5 +49,24 @@ router.post(
 router.get("/register", client_registerPage);
 router.post("/register", createClienteValidator, registerClientController);
 // router.post("/login", autenticateMidleware);
+
+// *************************** recuperar contrasena ***************************
+// colocar correo
+router.get("/recover_password", client_recoverPasswordPage);
+
+router.post(
+	"/recover_password",
+	RecoverPasswordClientValidator,
+	client_recoverPasswordSendEmail
+);
+
+// colocar contrasena
+router.get("/recover_password/:token", client_recoverPasswordSetPasswordPage);
+
+router.post(
+	"/recover_password/:token",
+	RecoverPassword_SetPassword_ClientValidator,
+	client_recoverPasswordSetPassword
+);
 
 export default router;

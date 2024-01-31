@@ -100,3 +100,10 @@ export interface failePaymentResponse {
 	message: string;
 	code: CodeErrorPaymentApiResponse;
 }
+
+export interface TokenPassword {
+	userId: number;
+	exp: number;
+	date: Date;
+	used: boolean;
+}
