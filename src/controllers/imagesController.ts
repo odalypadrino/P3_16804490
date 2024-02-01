@@ -11,6 +11,7 @@ import { getProductById_Service } from "../services/productService";
 import { ImagesAttributes } from "../../types";
 import { adminNavBarLinks } from "../config/NavBarLinks";
 import { matchedData, validationResult } from "express-validator";
+import DefalutResponse from "../config/DefalutResponse";
 
 // para añadir
 export const imageFormPage_controller = async (req: Request, res: Response) => {
@@ -20,8 +21,9 @@ export const imageFormPage_controller = async (req: Request, res: Response) => {
 
 		const product = await getProductById_Service(parseInt(productId));
 		const otherImages = await getImage_By_Product_Service(parseInt(productId));
-
+		
 		return res.render(RouterRender.admin.imageForm, {
+			...DefalutResponse,
 			product,
 			otherImages,
 			RoutesLinks,

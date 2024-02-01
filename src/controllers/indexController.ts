@@ -16,6 +16,11 @@ import {
 	createRatingService,
 	getOneRating_By_ClientAndProductservice,
 } from "../services/RatingService";
+import DefalutResponse from "../config/DefalutResponse";
+import {
+	schemaByProduct,
+	schemaListOfProducts,
+} from "../services/SchemaMarkupService";
 
 export const mainPage = async (req: Request, res: Response) => {
 	try {
@@ -25,9 +30,15 @@ export const mainPage = async (req: Request, res: Response) => {
 
 		const filters = await getQueryFilters_service();
 
+		const schemaMarkup = products ? schemaListOfProducts(products) : null;
+
 		return res.render(RouterRender.client.landing, {
+			...DefalutResponse,
 			products,
 			RoutesLinks,
+			googleAnalytics: true,
+			schemaMarkup,
+			openGrap: true,
 			NavbarLinks: userData
 				? userData.email === ROOT_USER
 					? adminNavBarLinks.default
@@ -76,9 +87,15 @@ export const searhPage = async (req: Request, res: Response) => {
 
 		const filters = await getQueryFilters_service();
 
-		res.render(RouterRender.client.search, {
+		const schemaMarkup = products ? schemaListOfProducts(products) : null;
+
+		return res.render(RouterRender.client.search, {
+			...DefalutResponse,
 			products,
 			RoutesLinks,
+			googleAnalytics: true,
+			schemaMarkup,
+			openGrap: true,
 			NavbarLinks: userData
 				? userData.email === ROOT_USER
 					? adminNavBarLinks.default
@@ -115,7 +132,13 @@ export const productPage = async (req: Request, res: Response) => {
 
 		const filters = await getQueryFilters_service();
 
+		const schemaMarkup = product ? schemaByProduct(product) : null;
+
 		res.render(RouterRender.client.product, {
+			...DefalutResponse,
+			googleAnalytics: true,
+			schemaMarkup,
+			openGrap: true,
 			product: product,
 			oneTransaction: !!oneTransaction,
 			oneRating: !!oneRating,
@@ -138,13 +161,19 @@ export const productPage = async (req: Request, res: Response) => {
 export const client_loginPage = async (_req: Request, res: Response) => {
 	// const products = await getAllProducts_Service();
 
-	res.render(RouterRender.client.client_login, { RoutesLinks });
+	res.render(RouterRender.client.client_login, {
+		...DefalutResponse,
+		RoutesLinks,
+	});
 };
 
 export const client_registerPage = async (_req: Request, res: Response) => {
 	// const products = await getAllProducts_Service();
 
-	res.render(RouterRender.client.client_register, { RoutesLinks });
+	res.render(RouterRender.client.client_register, {
+		...DefalutResponse,
+		RoutesLinks,
+	});
 };
 
 // ***************************** API *****************************

@@ -1,3 +1,5 @@
+import { URL_SERVER } from ".";
+
 const RouterRender = {
 	admin: {
 		index: "admin/dashboard/index",
@@ -77,6 +79,8 @@ export const RoutesLinks = {
 		landing: "/",
 		search: "/search",
 		product: "/product",
+		productLink:(productId:number|string)=> `/product/${productId}`,
+		productLinkAbsolute:(productId:number|string)=> `${URL_SERVER}/product/${productId}`,
 		sendRating: (productId: number | string) =>
 			`/product/${productId}/create_rating`,
 

@@ -1,0 +1,30 @@
+<% if (openGrap) { %>
+  <!--  -->
+  <% if (product !== null) { %>
+
+<meta property="og:type" content="product" />
+<meta property="og:title" content="<%= product.name %>" />
+<meta property="og:description" content="<%= product.description %>" />
+<meta
+	property="og:url"
+	content="<%=  RoutesLinks.client.productLinkAbsolute(product.id) %>"
+/>
+<meta property="og:image" content="<%= product.images[0].url %>" />
+<meta property="product:price:amount" content="<%= product.cost %>" />
+<meta property="product:price:currency" content="USD" />
+
+<% } else { %>
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Odaly Sport" />
+<meta
+	property="og:description"
+	content="Encuentra todo tipo de prendas deportivas que se ajustan a tus rutinas de ejercicios."
+/>
+<meta property="og:url" content="<%= url_server %>" />
+<meta
+	property="og:image"
+	content="<%= url_server %>/assets/img/iconLink_mini.jpg"
+/>
+
+<% } %> <% } %>

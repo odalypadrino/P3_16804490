@@ -11,10 +11,12 @@ import {
 	getAllTransactionService,
 	getTransactionsCount_service,
 } from "../services/TransactionService";
+import DefalutResponse from "../config/DefalutResponse";
 
 export const admin_loginPage = async (_req: Request, res: Response) => {
 	try {
 		return res.render(RouterRender.admin.login, {
+			...DefalutResponse,
 			RoutesLinks,
 		});
 	} catch (error) {
@@ -33,6 +35,7 @@ export const adminDashboardPage = async (req: Request, res: Response) => {
 		const transactionCount = await getTransactionsCount_service();
 
 		return res.render(RouterRender.admin.index, {
+			...DefalutResponse,
 			productCount,
 			categoryCount,
 			clientsCount,
@@ -54,6 +57,7 @@ export const adminClientsListListPage = async (req: Request, res: Response) => {
 		const clients = await getAllClients_Service();
 
 		return res.render(RouterRender.admin.clientList, {
+			...DefalutResponse,
 			clients,
 			RoutesLinks,
 			NavbarLinks: adminNavBarLinks.default,
@@ -75,6 +79,7 @@ export const adminTransactionListListPage = async (
 		const transaction = await getAllTransactionService();
 
 		return res.render(RouterRender.admin.transactionList, {
+			...DefalutResponse,
 			transaction,
 			RoutesLinks,
 			NavbarLinks: adminNavBarLinks.default,
