@@ -31,6 +31,7 @@ export interface ProductWithImg extends ProductModel {
 
 export interface ProductWithAverageRating extends ProductWithImg {
 	averageRating: number;
+	reviewCount:number
 }
 
 ProductModel.init(

@@ -6,7 +6,10 @@ import ProductModel, {
 import ImagesModel from "../models/Images.model";
 import CategoryModel from "../models/Category.model";
 import { Op, Sequelize } from "sequelize";
-import { averageRating_By_ProductService } from "./RatingService";
+import {
+	averageRating_By_ProductService,
+	getReviewCountProduct,
+} from "./RatingService";
 import { RatingOrder } from "../../enum";
 
 export const createProduct_Service = async (data: ProductAttributes) => {
@@ -41,9 +44,10 @@ const getProductWithAverageRating = async (
 	await Promise.all(
 		await products.map(async (product) => {
 			const p = product as ProductWithAverageRating;
-			const averageRating = await averageRating_By_ProductService(product.id);
 
-			p.averageRating = averageRating;
+			p.averageRating = await averageRating_By_ProductService(product.id);
+
+			p.reviewCount = await getReviewCountProduct(product.id);
 
 			return p;
 		})
@@ -103,6 +107,8 @@ export const getProductById_Service = async (id: number) => {
 		const p = product as ProductWithAverageRating;
 
 		p.averageRating = averageRating;
+
+		p.reviewCount = await getReviewCountProduct(product.id);
 
 		return p;
 	} catch (error) {

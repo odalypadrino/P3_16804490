@@ -39,32 +39,48 @@ export const getOneRating_By_ClientAndProductservice = async (
 export const averageRating_By_ProductService = async (
 	productId: string | number
 ) => {
-	const promedio = await RatingModel.findAll({
-		attributes: [
-			[Sequelize.fn("AVG", Sequelize.col("rating")), "averageRating"],
-		],
-		where: {
-			productId: productId,
-		},
-	});
+	try {
+		const promedio = await RatingModel.findAll({
+			attributes: [
+				[Sequelize.fn("AVG", Sequelize.col("rating")), "averageRating"],
+			],
+			where: {
+				productId: productId,
+			},
+		});
 
-	console.log(promedio);
+		console.log(promedio);
 
-	const { averageRating } = promedio[0]
-		.dataValues as RatingAttributes_With_AverageRating;
+		const { averageRating } = promedio[0]
+			.dataValues as RatingAttributes_With_AverageRating;
 
-	return averageRating ? averageRating : 0;
+		return averageRating ? averageRating : 0;
+	} catch (error) {
+		return 0;
+	}
+};
+
+export const getReviewCountProduct = async (productId: string | number) => {
+	try {
+		return await RatingModel.count({ where: { productId } });
+	} catch (error) {
+		return 0;
+	}
 };
 
 export const averageRating_all_ProductsService = async () => {
-	const promedioGlobal = await RatingModel.findAll({
-		attributes: [
-			[Sequelize.fn("AVG", Sequelize.col("rating")), "promedioRating"],
-		],
-		group: ["productId"],
-	});
+	try {
+		const promedioGlobal = await RatingModel.findAll({
+			attributes: [
+				[Sequelize.fn("AVG", Sequelize.col("rating")), "promedioRating"],
+			],
+			group: ["productId"],
+		});
 
-	return promedioGlobal;
+		return promedioGlobal;
+	} catch (error) {
+		return [];
+	}
 };
 
 export const getRatingsCount_service = async () => {

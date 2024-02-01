@@ -47,6 +47,7 @@ export const schemaByProduct = ({
 	brand,
 	cost,
 	images,
+	reviewCount,
 	averageRating,
 }: ProductWithAverageRating) =>
 	JSON.stringify({
@@ -55,7 +56,7 @@ export const schemaByProduct = ({
 		aggregateRating: {
 			"@type": "AggregateRating",
 			ratingValue: averageRating,
-			reviewCount: "11",
+			reviewCount,
 		},
 		name,
 		image: images[0].url,

@@ -207,6 +207,7 @@ export const client_recoverPasswordPage = async (
 ) =>
 	res.render(RouterRender.client.recover_password, {
 		...DefalutResponse,
+		email: null,
 		RoutesLinks,
 	});
 

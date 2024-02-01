@@ -96,7 +96,15 @@
 							<span class="mx-2" style="font-size: 1.2rem">
 								<% if (product.averageRating > 0) { %>
 								<!--  -->
-								<%= product.averageRating %> <% } else { %>
+								<%= product.averageRating %>
+
+								<span style="font-weight: 300; font-size: 0.95rem">
+									(<%= product.reviewCount %>)
+								</span>
+
+								<!--  -->
+
+								<% } else { %>
 								<!--  -->
 								Sin calificaciones
 								<!--  -->
@@ -133,10 +141,8 @@
 			</div>
 		</section>
 
-		<%- include("template/scripts") %>
-
-		<%- include("template/SchemaMarkup") %> 
-<script>
+		<%- include("template/scripts") %> <%- include("template/SchemaMarkup") %>
+		<script>
 			// TODO: hacer validacion de el input number
 			// const $quantity = document.querySelector("#quantity");
 

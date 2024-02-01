@@ -25,7 +25,13 @@
 				<!-- //todo: cambiar por el rating del producto -->
 
 				<% if (element.averageRating > 0) { %>
-				<span class="mx-2"><%= element.averageRating %> </span>
+				<span class="mx-2"
+					><%= element.averageRating %>
+
+					<span style="font-weight: 300; font-size: 0.95rem">
+						(<%= element.reviewCount %>)
+					</span>
+				</span>
 				<% } else { %>
 				<span class="mx-2">Sin calificaciones </span>
 				<% } %>

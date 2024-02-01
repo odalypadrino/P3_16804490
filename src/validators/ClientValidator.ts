@@ -63,7 +63,8 @@ export const createClienteValidator = [
 	body("password")
 		.notEmpty()
 		.isString()
-		.withMessage("La contraseña debe ser mínimo 3 caracteres"),
+		.isLength({ min: 8 })
+		.withMessage("La contraseña debe ser mínimo 8 caracteres"),
 
 	body("repeatPassword")
 		.notEmpty()
@@ -115,7 +116,8 @@ export const RecoverPassword_SetPassword_ClientValidator = [
 	body("password")
 		.notEmpty()
 		.isString()
-		.withMessage("La contraseña debe ser mínimo 3 caracteres"),
+		.isLength({ min: 8 })
+		.withMessage("La contraseña debe ser mínimo 8 caracteres"),
 
 	body("repeatPassword")
 		.notEmpty()
