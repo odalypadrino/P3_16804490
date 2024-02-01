@@ -17,6 +17,23 @@ export const createTransactionService = async (
 	}
 };
 
+export const getOneTransaction_BY_productANDclient = async (
+	clientId: number | string,
+	productId: number | string
+) => {
+	try {
+		const transaction = await TransactionModel.findOne({
+			where: { clientId, productId },
+		});
+
+		return transaction;
+	} catch (error) {
+		console.log(error);
+
+		throw new Error("Error al obtener las transacciones");
+	}
+};
+
 export const getAllTransactionService = async () => {
 	try {
 		const transacciones = await TransactionModel.findAll({

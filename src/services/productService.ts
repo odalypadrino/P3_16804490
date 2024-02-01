@@ -1,8 +1,13 @@
 import { ImagesAttributes, ProductAttributes, QueryProduct } from "../../types";
-import ProductModel from "../models/Product.model";
+import ProductModel, {
+	ProductWithAverageRating,
+	ProductWithImg,
+} from "../models/Product.model";
 import ImagesModel from "../models/Images.model";
 import CategoryModel from "../models/Category.model";
 import { Op, Sequelize } from "sequelize";
+import { averageRating_By_ProductService } from "./RatingService";
+import { RatingOrder } from "../../enum";
 
 export const createProduct_Service = async (data: ProductAttributes) => {
 	try {
@@ -30,13 +35,26 @@ export const updateProduct_Service = async (
 	}
 };
 
+const getProductWithAverageRating = async (
+	products: ProductWithImg[] | ProductAttributes[]
+) =>
+	await Promise.all(
+		await products.map(async (product) => {
+			const p = product as ProductWithAverageRating;
+			const averageRating = await averageRating_By_ProductService(product.id);
+
+			p.averageRating = averageRating;
+
+			return p;
+		})
+	);
 // interface a extends ProductModel {
 // 	images: ImagesAttributes[];
 // }
 
 export const getAllProducts_Service = async () => {
 	try {
-		return (
+		const product = (
 			await ProductModel.findAll({
 				include: [
 					{ model: ImagesModel, order: [["featured", "DESC"]] },
@@ -51,6 +69,8 @@ export const getAllProducts_Service = async () => {
 			);
 			return product;
 		});
+
+		return await getProductWithAverageRating(product);
 	} catch (error) {
 		console.log(error);
 
@@ -69,12 +89,22 @@ export const getProduct_By_Category_Service = async (categoryId: number) => {
 
 export const getProductById_Service = async (id: number) => {
 	try {
-		return await ProductModel.findByPk(id, {
+		const product = await ProductModel.findByPk(id, {
 			include: [
 				{ model: ImagesModel, order: [["featured", "DESC"]] },
 				{ model: CategoryModel, as: "category" },
 			],
 		});
+
+		if (!product) return null;
+
+		const averageRating = await averageRating_By_ProductService(product.id);
+
+		const p = product as ProductWithAverageRating;
+
+		p.averageRating = averageRating;
+
+		return p;
 	} catch (error) {
 		console.log(error);
 		return null;
@@ -86,6 +116,7 @@ export const getAllProductsByQuery_Service = async ({
 	brand,
 	size,
 	categoryId,
+	ratingOrder,
 }: QueryProduct) => {
 	const andInWhere = [];
 
@@ -102,22 +133,40 @@ export const getAllProductsByQuery_Service = async ({
 	if (categoryId) andInWhere.push({ categoryId });
 
 	try {
-		return (await ProductModel.findAll({
-			where: {
-				[Op.and]: andInWhere,
-			},
-			include: [
-				{ model: ImagesModel, order: [["featured", "DESC"]] },
-				{ model: CategoryModel, as: "category" },
-			],
-		})).map((product: any) => {
+		const productWithImg = (
+			await ProductModel.findAll({
+				where: {
+					[Op.and]: andInWhere,
+				},
+				include: [
+					{ model: ImagesModel, order: [["featured", "DESC"]] },
+					{ model: CategoryModel, as: "category" },
+				],
+			})
+		).map((product: any) => {
 			const imgs = product.images;
 
 			product.images = imgs.sort((a: ImagesAttributes) =>
 				a.featured === true ? 1 : -1
 			);
-			return product;
+			return product as ProductWithImg;
 		});
+
+		const productWithAverageRating = await getProductWithAverageRating(
+			productWithImg
+		);
+
+		const productBySorting =
+			ratingOrder !== RatingOrder.all
+				? productWithAverageRating.sort((productA, productB) => {
+						if (ratingOrder === RatingOrder.ASC)
+							return productA.averageRating > productB.averageRating ? 1 : -1;
+
+						return productA.averageRating < productB.averageRating ? 1 : -1;
+				  })
+				: productWithAverageRating;
+
+		return productBySorting;
 	} catch (error) {
 		console.log(error);
 

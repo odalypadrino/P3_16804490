@@ -23,7 +23,7 @@
 	</div>
 
 	<div class="row mt-3">
-		<div class="col-4">
+		<div class="col-3">
 			<div class="mb-3">
 				<label for="" class="form-label">Categoria</label>
 				<select class="form-select" name="categoryId" id="">
@@ -54,7 +54,7 @@
 			</div>
 		</div>
 
-		<div class="col-4">
+		<div class="col-3">
 			<div class="mb-3">
 				<label for="" class="form-label">Talla</label>
 				<select class="form-select" name="size" id="">
@@ -84,7 +84,7 @@
 			</div>
 		</div>
 
-		<div class="col-4">
+		<div class="col-3">
 			<div class="mb-3">
 				<label for="" class="form-label">Marca</label>
 				<select class="form-select" name="brand" id="">
@@ -110,6 +110,42 @@
 					<% } %>
 					<!--  -->
 					<% }) %>
+				</select>
+			</div>
+		</div>
+
+		<div class="col-3">
+			<div class="mb-3">
+				<label for="" class="form-label">Calificación</label>
+				<select class="form-select" name="ratingOrder" id="">
+					<% if (QueryData.query.ratingOrder) { %>
+
+					<option value="">Todas</option>
+
+					<!--  -->
+
+					<% if (QueryData.query.ratingOrder === "ASC") { %>
+
+					<option value="DESC">Descendente</option>
+					<option selected value="ASC">Ascendente</option>
+
+					<% } else { %>
+
+					<option selected value="DESC">Descendente</option>
+					<option value="ASC">Ascendente</option>
+
+					<% } %>
+					<!--  -->
+
+					<% } else { %>
+
+					<option selected value="">Todo</option>
+					<option value="DESC">Descendente</option>
+					<option value="ASC">Ascendente</option>
+
+					<% } %>
+
+					<!--  -->
 				</select>
 			</div>
 		</div>

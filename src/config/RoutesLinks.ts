@@ -77,6 +77,8 @@ export const RoutesLinks = {
 		landing: "/",
 		search: "/search",
 		product: "/product",
+		sendRating: (productId: number | string) =>
+			`/product/${productId}/create_rating`,
 
 		login: "/client/login",
 		client_login: "/client/login",

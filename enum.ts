@@ -7,3 +7,9 @@ export enum CodeErrorPaymentApiResponse {
 	error = "003",
 	insufficientFunds = "004",
 }
+
+export enum RatingOrder {
+	all = "",
+	ASC = "ASC",
+	DESC = "DESC",
+}

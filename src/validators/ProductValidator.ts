@@ -32,3 +32,12 @@ export const createProductValidator = [
 			}
 		}),
 ];
+
+export const createRatingProductValidator = [
+	body("rating")
+		.trim()
+		.notEmpty()
+		.isNumeric()
+		.toInt()
+		.customSanitizer((v) => (v > 5 ? 5 : v < 1 ? 1 : v)),
+];

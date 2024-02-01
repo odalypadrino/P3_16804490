@@ -1,4 +1,4 @@
-import { CodeErrorPaymentApiResponse, Currency } from "./enum";
+import { CodeErrorPaymentApiResponse, Currency, RatingOrder } from "./enum";
 
 export interface ProductAttributes {
 	id: number;
@@ -53,11 +53,23 @@ export interface TransactionAttributes {
 	error: CodeErrorPaymentApiResponse;
 }
 
+export interface RatingAttributes {
+	id: number;
+	clientId: number;
+	productId: number;
+	rating: number;
+}
+
+export interface RatingAttributes_With_AverageRating extends RatingAttributes {
+	averageRating: number;
+}
+
 export interface QueryProduct {
 	text: string | null;
 	brand: string | null;
 	size: string | null;
 	categoryId: string | null;
+	ratingOrder: RatingOrder;
 }
 
 export interface CredicardConfirmPayData {

@@ -1,7 +1,11 @@
 import { DataTypes, Model } from "sequelize";
 import db from "../db";
 import CategoryModel from "./Category.model";
-import { ProductAttributes } from "../../types";
+import {
+	ImagesAttributes,
+	ProductAttributes,
+	RatingAttributes,
+} from "../../types";
 
 class ProductModel
 	extends Model<ProductAttributes>
@@ -16,9 +20,17 @@ class ProductModel
 	public brand!: string | null;
 	public status!: string;
 	public categoryId!: number;
-
+	public ratings!: RatingAttributes;
 	public readonly createdAt!: Date;
 	public readonly updatedAt!: Date;
+}
+
+export interface ProductWithImg extends ProductModel {
+	images: ImagesAttributes[];
+}
+
+export interface ProductWithAverageRating extends ProductWithImg {
+	averageRating: number;
 }
 
 ProductModel.init(
@@ -44,7 +56,13 @@ ProductModel.init(
 	}
 );
 
-ProductModel.belongsTo(CategoryModel, { foreignKey: "categoryId",as:"category" });
-CategoryModel.hasMany(ProductModel, { foreignKey: "categoryId", as:"category" });
+ProductModel.belongsTo(CategoryModel, {
+	foreignKey: "categoryId",
+	as: "category",
+});
+CategoryModel.hasMany(ProductModel, {
+	foreignKey: "categoryId",
+	as: "category",
+});
 
 export default ProductModel;
