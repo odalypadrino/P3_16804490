@@ -1,4 +1,10 @@
 import { CodeErrorPaymentApiResponse, Currency, RatingOrder } from "./enum";
+declare module 'nodemailer';
+declare module 'cookie-parser';
+declare module 'morgan';
+declare module 'express-session';
+declare module 'bcrypt';
+declare module 'jsonwebtoken';
 
 export interface ProductAttributes {
 	id: number;
