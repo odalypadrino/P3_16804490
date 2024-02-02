@@ -49,8 +49,6 @@ export const averageRating_By_ProductService = async (
 			},
 		});
 
-		console.log(promedio);
-
 		const { averageRating } = promedio[0]
 			.dataValues as RatingAttributes_With_AverageRating;
 

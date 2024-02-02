@@ -16,7 +16,7 @@ import {
 	createRatingService,
 	getOneRating_By_ClientAndProductservice,
 } from "../services/RatingService";
-import DefalutResponse from "../config/DefalutResponse";
+import DefaultResponse from "../config/DefaultResponse";
 import {
 	schemaByProduct,
 	schemaListOfProducts,
@@ -33,7 +33,7 @@ export const mainPage = async (req: Request, res: Response) => {
 		const schemaMarkup = products ? schemaListOfProducts(products) : null;
 
 		return res.render(RouterRender.client.landing, {
-			...DefalutResponse,
+			...DefaultResponse,
 			products,
 			RoutesLinks,
 			googleAnalytics: true,
@@ -90,7 +90,7 @@ export const searhPage = async (req: Request, res: Response) => {
 		const schemaMarkup = products ? schemaListOfProducts(products) : null;
 
 		return res.render(RouterRender.client.search, {
-			...DefalutResponse,
+			...DefaultResponse,
 			products,
 			RoutesLinks,
 			googleAnalytics: true,
@@ -135,7 +135,7 @@ export const productPage = async (req: Request, res: Response) => {
 		const schemaMarkup = product ? schemaByProduct(product) : null;
 
 		res.render(RouterRender.client.product, {
-			...DefalutResponse,
+			...DefaultResponse,
 			googleAnalytics: true,
 			schemaMarkup,
 			openGrap: true,
@@ -162,7 +162,7 @@ export const client_loginPage = async (_req: Request, res: Response) => {
 	// const products = await getAllProducts_Service();
 
 	res.render(RouterRender.client.client_login, {
-		...DefalutResponse,
+		...DefaultResponse,
 		RoutesLinks,
 	});
 };
@@ -171,7 +171,7 @@ export const client_registerPage = async (_req: Request, res: Response) => {
 	// const products = await getAllProducts_Service();
 
 	res.render(RouterRender.client.client_register, {
-		...DefalutResponse,
+		...DefaultResponse,
 		RoutesLinks,
 	});
 };

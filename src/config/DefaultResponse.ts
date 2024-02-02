@@ -1,6 +1,6 @@
-import { URL_SERVER } from ".";
+import { URL_SERVER } from "./index";
 
-const DefalutResponse = {
+const DefaultResponse = {
 	googleAnalytics: null,
 	schemaMarkup: null,
 	openGrap: null,
@@ -8,4 +8,4 @@ const DefalutResponse = {
 	product: null,
 };
 
-export default DefalutResponse;
+export default DefaultResponse;

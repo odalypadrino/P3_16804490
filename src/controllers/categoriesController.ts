@@ -10,7 +10,7 @@ import {
 import { CategoryAttributes } from "../../types";
 import { adminNavBarLinks } from "../config/NavBarLinks";
 import { matchedData, validationResult } from "express-validator";
-import DefalutResponse from "../config/DefalutResponse";
+import DefaultResponse from "../config/DefaultResponse";
 
 export const categoryListPage_controller = async (
 	req: Request,
@@ -22,7 +22,7 @@ export const categoryListPage_controller = async (
 		const categories = await getCategories_Service();
 
 		return res.render(RouterRender.admin.categoryList, {
-			...DefalutResponse,
+			...DefaultResponse,
 			categories,
 			RoutesLinks,
 			NavbarLinks: adminNavBarLinks.default,
@@ -42,7 +42,7 @@ export const categoryFormPage_controller = async (
 		const userData = req.user;
 
 		return res.render(RouterRender.admin.categoryForm, {
-			...DefalutResponse,
+			...DefaultResponse,
 			data: null,
 			RoutesLinks,
 			NavbarLinks: adminNavBarLinks.default,
@@ -65,7 +65,7 @@ export const categoryFormPage_ById_controller = async (
 		const category = await getCategoryById_Service(id);
 
 		res.render(RouterRender.admin.categoryForm, {
-			...DefalutResponse,
+			...DefaultResponse,
 			data: category,
 			RoutesLinks,
 			NavbarLinks: adminNavBarLinks.default,

@@ -27,7 +27,7 @@ import {
 	sendRegisterEmail,
 } from "../services/emailService";
 import { validarYExtraerDatos } from "../services/tokenService";
-import DefalutResponse from "../config/DefalutResponse";
+import DefaultResponse from "../config/DefaultResponse";
 
 export const mainPage = async (_req: Request, res: Response) => {
 	return res.redirect(RoutesLinks.client.landing);
@@ -47,11 +47,11 @@ export const mainPage = async (_req: Request, res: Response) => {
 };
 
 export const loginPage = async (_req: Request, res: Response) =>
-	res.render(RouterRender.client.login, { ...DefalutResponse, RoutesLinks });
+	res.render(RouterRender.client.login, { ...DefaultResponse, RoutesLinks });
 
 export const client_loginPage = async (_req: Request, res: Response) =>
 	res.render(RouterRender.client.client_login, {
-		...DefalutResponse,
+		...DefaultResponse,
 		RoutesLinks,
 	});
 
@@ -62,7 +62,7 @@ export const client_dashboardPage = async (req: Request, res: Response) => {
 		const transaction = await getAllTransaction_ByClient_Service(userData.id);
 
 		return res.render(RouterRender.client.dashboard, {
-			...DefalutResponse,
+			...DefaultResponse,
 			RoutesLinks,
 			transaction,
 			NavbarLinks: clientNavBarLinks.dashboard,
@@ -84,7 +84,7 @@ export const client_registerPage = async (req: Request, res: Response) => {
 		}
 
 		return res.render(RouterRender.client.client_register, {
-			...DefalutResponse,
+			...DefaultResponse,
 			RoutesLinks,
 			errors,
 		});
@@ -106,7 +106,7 @@ export const client_credicardPage = async (req: Request, res: Response) => {
 		const total = product ? product.cost * cant : 0;
 
 		res.render(RouterRender.client.credicard, {
-			...DefalutResponse,
+			...DefaultResponse,
 			RoutesLinks,
 			NavbarLinks: userData
 				? clientNavBarLinks.landing_loggedIn
@@ -174,7 +174,7 @@ export const client_pay_confirmPage = async (req: Request, res: Response) => {
 		await sendBuyProductEmail(userData, transaction, product);
 
 		return res.render(RouterRender.client.pay_confirm, {
-			...DefalutResponse,
+			...DefaultResponse,
 			RoutesLinks,
 			NavbarLinks: userData
 				? clientNavBarLinks.landing_loggedIn
@@ -184,7 +184,7 @@ export const client_pay_confirmPage = async (req: Request, res: Response) => {
 		});
 	} catch (error: any) {
 		return res.render(RouterRender.client.pay_confirm, {
-			...DefalutResponse,
+			...DefaultResponse,
 			RoutesLinks,
 			NavbarLinks: userData
 				? clientNavBarLinks.landing_loggedIn
@@ -206,7 +206,7 @@ export const client_recoverPasswordPage = async (
 	res: Response
 ) =>
 	res.render(RouterRender.client.recover_password, {
-		...DefalutResponse,
+		...DefaultResponse,
 		email: null,
 		RoutesLinks,
 	});
@@ -226,7 +226,7 @@ export const client_recoverPasswordSendEmail = async (
 	// revisa tu correo electronico
 	if (!result.isEmpty())
 		return res.render(RouterRender.client.recover_password_Link_Sended, {
-			...DefalutResponse,
+			...DefaultResponse,
 			email,
 		});
 
@@ -236,7 +236,7 @@ export const client_recoverPasswordSendEmail = async (
 		if (user) await sendRecoverPassword(user);
 
 		return res.render(RouterRender.client.recover_password_Link_Sended, {
-			...DefalutResponse,
+			...DefaultResponse,
 			email,
 		});
 	} catch (error) {
@@ -261,7 +261,7 @@ export const client_recoverPasswordSetPasswordPage = async (
 		const { email } = user;
 
 		return res.render(RouterRender.client.recover_password, {
-			...DefalutResponse,
+			...DefaultResponse,
 			RoutesLinks,
 			email,
 			token,

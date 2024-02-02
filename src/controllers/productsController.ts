@@ -11,7 +11,7 @@ import RouterRender, { RoutesLinks } from "../config/RoutesLinks";
 import { ProductAttributes } from "../../types";
 import { adminNavBarLinks } from "../config/NavBarLinks";
 import { matchedData, validationResult } from "express-validator";
-import DefalutResponse from "../config/DefalutResponse";
+import DefaultResponse from "../config/DefaultResponse";
 
 export const productListPage_controller = async (
 	req: Request,
@@ -23,7 +23,7 @@ export const productListPage_controller = async (
 		const products = await getAllProducts_Service();
 
 		return res.render(RouterRender.admin.productList, {
-			...DefalutResponse,
+			...DefaultResponse,
 			products,
 			RoutesLinks,
 			NavbarLinks: adminNavBarLinks.default,
@@ -45,7 +45,7 @@ export const productFormPage_controller = async (
 		const categories = await getCategories_Service();
 
 		res.render(RouterRender.admin.productForm, {
-			...DefalutResponse,
+			...DefaultResponse,
 			data: null,
 			categories,
 			RoutesLinks,
@@ -70,7 +70,7 @@ export const productFormPage_ById_controller = async (
 		const categories = await getCategories_Service();
 
 		res.render(RouterRender.admin.productForm, {
-			...DefalutResponse,
+			...DefaultResponse,
 			data: product,
 			categories,
 			RoutesLinks,
