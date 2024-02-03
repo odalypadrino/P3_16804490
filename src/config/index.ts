@@ -17,6 +17,8 @@ export const PAYMENT_API_KEY = process.env.PAYMENT_API_KEY;
 
 export const PAYMENT_URL = process.env.PAYMENT_URL as string;
 
+export const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || "";
+
 export const SENDER_EMAIL = process.env.SENDER_EMAIL;
 export const SENDER_EMAIL_PASSWORD = process.env.SENDER_EMAIL_PASSWORD;
 

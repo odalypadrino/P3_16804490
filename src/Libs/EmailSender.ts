@@ -1,26 +1,22 @@
-import nodemailer from "nodemailer";
-import { SENDER_EMAIL, SENDER_EMAIL_PASSWORD } from "../config";
+import sgMail from "@sendgrid/mail";
+
+import { SENDER_EMAIL, SENDGRID_API_KEY } from "../config";
 
 export const sendEmail = async (to: string, subject: string, html: string) => {
-	let transporter = nodemailer.createTransport({
-		service: "hotmail",
-		auth: {
-			user: SENDER_EMAIL,
-			pass: SENDER_EMAIL_PASSWORD,
-		},
-	});
+	sgMail.setApiKey(SENDGRID_API_KEY);
 
-	let mailOptions = {
-		from: `Odaly Sport ${SENDER_EMAIL}`,
+	const mailOptions = {
+		from: `${SENDER_EMAIL}`,
 		to,
 		subject,
 		html,
 	};
 
 	try {
-		let info = await transporter.sendMail(mailOptions);
-		console.log("Correo electrónico enviado: " + info.response);
-	} catch (error) {
-		console.log(error);
+		await sgMail.send(mailOptions);
+		console.log("correo enviado");
+	} catch (error: any) {
+		console.error(error);
+		console.log(error.response.body);
 	}
 };
